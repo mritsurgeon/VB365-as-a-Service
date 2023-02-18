@@ -86,8 +86,6 @@ bash install.sh
 --sql-admin-password "my-sql-password"
 --publisher-admin-users "admin1@contoso.com,admin2@contoso.com"
 
-markdown
-
 
 ### Usage
 
