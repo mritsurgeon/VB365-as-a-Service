@@ -1,0 +1,25 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "azureFunctionOperation_functionAppKey": "KdSGkOuPew6LTo9nu98mnXxcoJlPg0lR1koB-6sxYAHFAzFuY-mQLw==",
+    "WEBSITE_SLOT_NAME": "Production",
+    "AzureFunctionsJobHost__extensionBundle__id": "Microsoft.Azure.Functions.ExtensionBundle.Workflows",
+    "FUNCTIONS_EXTENSION_VERSION": "~4",
+    "ScmType": "None",
+    "WEBSITE_AUTH_ENABLED": "False",
+    "AzureFunctionsJobHost__extensionBundle__version": "[1.*, 2.0.0)",
+    "REMOTEDEBUGGINGVERSION": "16.0.32106.67",
+    "FUNCTIONS_RUNTIME_SCALE_MONITORING_ENABLED": "1",
+    "WEBSITE_NODE_DEFAULT_VERSION": "14.20.0",
+    "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING": "DefaultEndpointsProtocol=https;AccountName=rsavbm365baas97a7;AccountKey=HPwDZuMVmTnIJ6j468HY3s2Z5nEXMQui5Birmtbqs77S3kMSkNRT1zKbBN6V5XMaaryz+gTCNjtV+AStyOk+Dw==;EndpointSuffix=core.windows.net",
+    "WEBSITE_CONTENTSHARE": "vbm365sv29c29",
+    "WEBSITE_AUTH_AUTO_AAD": "False",
+    "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=rsavbm365baas97a7;AccountKey=HPwDZuMVmTnIJ6j468HY3s2Z5nEXMQui5Birmtbqs77S3kMSkNRT1zKbBN6V5XMaaryz+gTCNjtV+AStyOk+Dw==;EndpointSuffix=core.windows.net",
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "WEBSITE_SITE_NAME": "VBM365sv2",
+    "WEBSITE_LOAD_ROOT_CERTIFICATES": "E52AF87C2D711BE5E931B3928A380565E3D451C7",
+    "WEBSITE_AUTH_LOGOUT_PATH": "/.auth/logout",
+    "APP_KIND": "workflowApp",
+    "Workflows.VBM365sv2.FlowState": "Disabled"
+  }
+}
