@@ -11,14 +11,21 @@ This solution is a starting point for service providers to build a similar SaaS 
 
 ## Getting Started
 
-1. Fork or clone this repository.
-2. Create an Azure Logic Apps account and sign in to the Azure Portal.
-3. Configure the following parameters in the Azure Logic App Designer:
-    - Company: Name of the customer company for which you want to provision SaaS.
-    - Users: Number of user accounts to be provisioned for the SaaS offer.
-    - From: Email address from which the welcome email and provisioning notification will be sent.
-    - Recipient: Email address to which the welcome email will be sent.
-4. Save and enable the Logic App.
+1. Login to your Azure subscription and open Azure CLI.
+2. Clone the repository.
+3. Run `Install.sh` with the appropriate parameters.
+4. Take note of the final output of the installation, including the landing page, webhook, tenant ID, and AAD application ID.
+5. Login to the Microsoft Partner Center at the provided URL.
+6. Create an offer in the marketplace using the details captured from the installation output, and configure the offer's technical details.
+7. Return to the Azure Logic App and configure its properties. Add the placeholder thumbprint from the VSPC console security settings (optional if SSL certificate used).
+8. Configure the logic app parameters and add the correct values.
+9. Login to the VSPC VM and add the vb365 server to the configuration.
+10. Login to the vb365 server and configure backup resources.
+11. Login to the Admin portal web app through the provided URL.
+12. Configure additional fields in the following order: VCSP-Company, VCSP-Email, and VCSP-User. Alternatively, change the text parser expression (note: currently set to use `VCSP-` prefix in split).
+13. Change the notification settings in the admin portal to enable notifications on subscription.
+14. In the configuration, allow for auto-provisioning.
+
 
 ## Workflows
 
