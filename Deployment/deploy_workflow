@@ -20,4 +20,4 @@ az logic workflow update --resource-group $rg_name --name $logic_app_name --subn
 az logic workflow import --resource-group $rg_name --name $logic_app_name --input-file "../Project Amafu/LogicApp/Mail-Trigger/workflow.json"
 
 # Print confirmation message
-echo "Logic App deployed successfully!!"
+echo "Logic App deployed successfully!"
