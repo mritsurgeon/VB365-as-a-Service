@@ -7,13 +7,13 @@ vm_name=$2
 az vm open-port \
     --name $vm_name \
     --resource-group $rg_name \
-    --port 80 \
+    --port 1280 \
     --priority 1001
 
 az vm open-port \
     --name $vm_name \
     --resource-group $rg_name \
-    --port 443 \
+    --port 3389 \
     --priority 1002
 
 # Print a message for the user
