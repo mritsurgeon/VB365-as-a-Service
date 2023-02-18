@@ -4,15 +4,15 @@
 rg_name=$1
 vb365_vm_name=$2
 VSPC_vm_name=$3
-vm_username=$3
-vm_password=$4
-vnet_name=$5
-subnet_name=$6
-image_publisher=$7
-image_offer_VSPC=$8
-image_VSPC_sku=$9
-image_offer_VB365=${10}
-image_365_sku=${11}
+vm_username=$4
+vm_password=$5
+vnet_name=$6
+subnet_name=$7
+image_publisher=$8
+image_offer_VSPC=$9
+image_VSPC_sku=${10}
+image_offer_VB365=${11}
+image_365_sku=${12}
 
 # Create the resource group if it does not exist
 az group create --name $rg_name --location eastus
