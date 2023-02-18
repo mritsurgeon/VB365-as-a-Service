@@ -27,7 +27,7 @@ This solution is a starting point for service providers to build a similar SaaS 
 14. In the configuration, allow for auto-provisioning.
 
 
-## Workflows
+##Logic APP Workflows
 
 Brief description of the various workflows in this project.
 
