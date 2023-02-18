@@ -17,7 +17,7 @@ Location=$8
 
 
 # Call the Deploy.ps1 script
-pwsh /Commercial-Marketplace-SaaS-Accelerator/deployment/Deploy.ps1 `
+pwsh ./Commercial-Marketplace-SaaS-Accelerator/deployment/Deploy.ps1 `
   -WebAppNamePrefix "$WebAppNamePrefix" `
   -SQLServerName "$SQLServerName" `
   -SQLAdminLogin "$SQLAdminLogin" `

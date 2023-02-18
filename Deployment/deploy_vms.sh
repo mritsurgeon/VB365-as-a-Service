@@ -29,12 +29,11 @@ az vm create \
     --admin-username $vm_username \
     --admin-password $vm_password \
     --size Standard_DS1_v2 \
-    --public-ip-address-dns-name $VSPC_vm_name \
     --vnet-name $vnet_name \
     --subnet $subnet_name
 
 # Wait until the VM is fully provisioned
-az vm wait --name $VSPC_vm_name--resource-group $rg_name --created
+az vm wait --name $VSPC_vm_name --resource-group $rg_name --created
 
 # Get the VM IP address
 vm1_ip=$(az vm show --name $VSPC_vm_name --resource-group $rg_name --query publicIps --output tsv)
@@ -53,7 +52,6 @@ az vm create \
     --admin-username $vm_username \
     --admin-password $vm_password \
     --size Standard_DS1_v2 \
-    --public-ip-address-dns-name $vb365_vm_name \
     --vnet-name $vnet_name \
     --subnet $subnet_name
 
