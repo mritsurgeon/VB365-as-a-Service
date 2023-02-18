@@ -17,7 +17,7 @@ az logic workflow create --resource-group $rg_name --name $logic_app_name --loca
 az logic workflow update --resource-group $rg_name --name $logic_app_name --subnet $subnet_id
 
 # Deploy the Logic App workflow
-az logic workflow import --resource-group $rg_name --name $logic_app_name --input-file "/VB365-as-a-Service/Project Amafu/LogicApp/Mail-Trigger/workflow.json"
+az logic workflow import --resource-group $rg_name --name $logic_app_name --input-file "../Project Amafu/LogicApp/Mail-Trigger/workflow.json"
 
 # Print confirmation message
-echo "Logic App deployed successfully!"
+echo "Logic App deployed successfully!!"
