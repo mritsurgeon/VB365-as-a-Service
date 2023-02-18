@@ -59,41 +59,82 @@ Installation
 
 To install this solution, follow these steps:
 
-    Clone the repository to your local machine.
+    Clone the repository 
+    
+bash install.sh \
+  --rg-name "my-resource-group" \
+  --location "westus2" \
+  --vb365-vm-name "vb365-vm" \
+  --vspc-vm-name "vspc-vm" \
+  --vm-username "my-username" \
+  --vm-password "my-password" \
+  --vnet-name "my-vnet" \
+  --subnet-name "my-subnet" \
+  --logic-app-name "my-logic-app" \
+  --webapp-name-prefix "my-webapp" \
+  --sql-server-name "my-sql-server" \
+  --sql-admin-login "my-sql-username" \
+  --sql-admin-password "my-sql-password" \
+  --publisher-admin-users "admin1@contoso.com,admin2@contoso.com"
+    
 
-    In a PowerShell console, navigate to the setup folder and run the deploy.ps1 script. This script will deploy the following Azure resources:
-        A resource group to hold all the resources.
-        An App Service plan to host the Function App.
-        A Function App to process incoming emails.
-        A SendGrid account to send emails.
-        A Twilio account to send SMS messages.
-        A Logic App to provision the SaaS offer.
-        A Logic App to send a welcome email to new customers.
-        A Logic App to send a notification to the SaaS provider when a new customer is provisioned.
-
-    Update the parameters in the config.json file to match your environment. The following parameters are required:
-        TenantId: The Azure AD tenant ID where the resources are deployed.
-        SubscriptionId: The Azure subscription ID where the resources are deployed.
-        ResourceGroupName: The name of the resource group where the resources are deployed.
-        FunctionAppName: The name of the Function App.
-        SendGridApiKey: The API key for the SendGrid account.
-        TwilioAccountSid: The account SID for the Twilio account.
-        TwilioAuthToken: The auth token for the Twilio account.
-        TwilioFromPhoneNumber: The phone number to use as the sender for SMS messages.
-        SaaSProviderUrl: The URL of the SaaS provider's API to provision the offer.
-        SaaSProviderApiKey: The API key for the SaaS provider's API.
-        SaaSProviderOfferId: The ID of the SaaS offer to provision.
-        SaaSProviderPlanId: The ID of the SaaS plan to provision.
-        SaaSProviderQuantity: The number of user licenses to provision.
-
-    In a PowerShell console, navigate to the scripts folder and run the following scripts in order:
-        register-webhook.ps1: This script will register a webhook in the Function App to receive incoming emails.
-        create-self-signed-certificate.ps1: This script will create a self-signed certificate to use for encrypting email attachments.
-        upload-certificate.ps1: This script will upload the certificate to the Function App.
-        configure-saas-api.ps1: This script will configure the SaaS provider API with the offer and plan IDs.
-        create-connection.ps1: This script will create a connection to the SaaS provider API in the Logic App.
-        update-workflows.ps1: This script will update the workflows with the necessary parameters and connections.
-
-Usage
+Usage:
 
 To use this solution, follow these
+
+   The script expects some input parameters to be passed in when it is executed. Here is a list of the parameters you need to provide:
+   
+Static parameters:
+( these are maintained with the code )
+
+saas_repo: The URL of the GitHub repository that contains the Commercial Marketplace SaaS Accelerator.
+
+image_publisher: The publisher name for the VM images.
+
+image_offer_VSPC: The offer name for the Veeam Service Provider Console VM image.
+
+image_offer_VB365: The offer name for the Veeam Backup for Office 365 VM image.
+
+image_VSPC_sku: The SKU name for the Veeam Service Provider Console VM image.
+
+image_365_sku: The SKU name for the Veeam Backup for Office 365 VM image.
+
+Global Parameters:
+( These are set by user , but used more than once throughout the scripts )
+
+ResourceGroupForDeployment: The name of the resource group in which to deploy the solution.
+
+Location: The Azure region in which to deploy the solution.
+
+Required Parameters for Deploying :
+( These are set by user , But specific to creating 2 VMs ) 
+
+vb365_vm_name: The name of the virtual machine for Veeam Backup for Office 365.
+
+vspc_vm_name: The name of the virtual machine for Veeam Service Provider Console.
+
+vm_username: The administrator username for the virtual machines.
+
+vm_password: The administrator password for the virtual machines.
+
+vnet_name: The name of the virtual network in which to deploy the virtual machines.
+
+subnet_name: The name of the subnet in which to deploy the virtual machines.
+
+Required Parameters for Deploying Logic App and Web App
+( These are set by user , But specific to creating Logic App & deploying MS SaaS accelerator ) 
+
+logic_app_name: The name of the Logic App workflow.
+
+WebAppNamePrefix: The prefix of the name of the Web App.
+
+SQLServerName: The name of the SQL Server.
+
+SQLAdminLogin: The administrator login for the SQL Server.
+
+SQLAdminLoginPassword: The administrator password for the SQL Server.
+
+PublisherAdminUsers: The email address of the administrator to add as a Publisher admin.
+
+These parameters allow you to customize the deployment of the solution to fit your specific needs.
+
