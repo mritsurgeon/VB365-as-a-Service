@@ -1,66 +1,76 @@
 # VB365-as-a-Service
 Azure Software as a Solution for Veeam Backup for Microsoft 365 as a Service
 
-Project Title
+## Project Title
 
 Brief description of the project.
-Prerequisites
+
+## Prerequisites
 
 List any prerequisites required to use this project, such as software or credentials.
-Getting Started
 
-    Fork or clone this repository.
-    Create an Azure Logic Apps account and sign in to the Azure Portal.
-    Configure the following parameters in the Azure Logic App Designer:
-        Company: Name of the customer company for which you want to provision SaaS.
-        Users: Number of user accounts to be provisioned for the SaaS offer.
-        From: Email address from which the welcome email and provisioning notification will be sent.
-        Recipient: Email address to which the welcome email will be sent.
-    Save and enable the Logic App.
+## Getting Started
 
-Workflows
+1. Fork or clone this repository.
+2. Create an Azure Logic Apps account and sign in to the Azure Portal.
+3. Configure the following parameters in the Azure Logic App Designer:
+    - Company: Name of the customer company for which you want to provision SaaS.
+    - Users: Number of user accounts to be provisioned for the SaaS offer.
+    - From: Email address from which the welcome email and provisioning notification will be sent.
+    - Recipient: Email address to which the welcome email will be sent.
+4. Save and enable the Logic App.
+
+## Workflows
 
 Brief description of the various workflows in this project.
-Workflow 1: Send Welcome Email
+
+### Workflow 1: Send Welcome Email
 
 Description of the workflow.
-Workflow 2: Provision SaaS
+
+### Workflow 2: Provision SaaS
 
 Description of the workflow.
-Workflow 3: VCSP Provisioned Notification
+
+### Workflow 3: VCSP Provisioned Notification
 
 Description of the workflow.
-Built With
 
-    Azure Logic Apps - Cloud-based service for automating workflows and business processes.
+## Built With
 
-Authors
+- Azure Logic Apps - Cloud-based service for automating workflows and business processes.
+
+## Authors
 
 List the authors of the project and their contributions.
-License
+
+## License
 
 This project is licensed under the MIT License.
 
+---
 
-This is a set of scripts and workflows that automate the provisioning of a SaaS offer for Office 365 customers.
-Prerequisites
+## This is a set of scripts and workflows that automate the provisioning of a SaaS offer for Office 365 customers.
 
-    An Azure subscription with sufficient permissions to create and manage Logic Apps and Function Apps.
-    An Office 365 account with sufficient permissions to read and write emails.
-    A SendGrid account to send emails to customers.
-    A Twilio account to send SMS messages to customers.
-    PowerShell 7.0 or later.
-    Azure PowerShell module version 6.13.1 or later.
-    .NET Core 3.1 or later.
-    Node.js version 14.15.4 or later.
-    Visual Studio Code or another code editor.
+## Prerequisites
 
-Installation
+- An Azure subscription with sufficient permissions to create and manage Logic Apps and Function Apps.
+- An Office 365 account with sufficient permissions to read and write emails.
+- A SendGrid account to send emails to customers.
+- A Twilio account to send SMS messages to customers.
+- PowerShell 7.0 or later.
+- Azure PowerShell module version 6.13.1 or later.
+- .NET Core 3.1 or later.
+- Node.js version 14.15.4 or later.
+- Visual Studio Code or another code editor.
+
+## Installation
 
 To install this solution, follow these steps:
 
-    Clone the repository 
-    
+1. Clone the repository.
+
+```bash 
 bash install.sh \
   --rg-name "my-resource-group" \
   --location "westus2" \
@@ -76,7 +86,6 @@ bash install.sh \
   --sql-admin-login "my-sql-username" \
   --sql-admin-password "my-sql-password" \
   --publisher-admin-users "admin1@contoso.com,admin2@contoso.com"
-    
 
 Usage:
 
