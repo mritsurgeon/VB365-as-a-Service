@@ -76,3 +76,5 @@ image_365_sku="veeamoffice365backup"
   "$subnet_name" \
   "$logic_app_name" \
   "$location"
+
+# End
