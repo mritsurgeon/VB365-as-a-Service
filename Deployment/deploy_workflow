@@ -1,0 +1,23 @@
+#!/bin/bash
+
+rg_name=$1
+workflow_zip=$2
+vm_name=$3
+vm_username=$4
+vm_password=$5
+
+# Extract the workflow ZIP file
+unzip $workflow_zip
+
+# Replace the parameters in the workflow definition
+sed -i "s/{vm_name}/$vm_name/g" ./workflow-definition.json
+sed -i "s/{vm_username}/$vm_username/g" ./workflow-definition.json
+sed -i "s/{vm_password}/$vm_password/g" ./workflow-definition.json
+
+# Deploy the Logic App workflow
+az logic workflow create \
+    --resource-group $rg_name \
+    --definition @"./workflow-definition.json"
+
+# Print a message for the user
+echo "Logic App
