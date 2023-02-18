@@ -70,80 +70,66 @@ To install this solution, follow these steps:
 
 1. Clone the repository.
 
-```bash 
-bash install.sh \
-  --rg-name "my-resource-group" \
-  --location "westus2" \
-  --vb365-vm-name "vb365-vm" \
-  --vspc-vm-name "vspc-vm" \
-  --vm-username "my-username" \
-  --vm-password "my-password" \
-  --vnet-name "my-vnet" \
-  --subnet-name "my-subnet" \
-  --logic-app-name "my-logic-app" \
-  --webapp-name-prefix "my-webapp" \
-  --sql-server-name "my-sql-server" \
-  --sql-admin-login "my-sql-username" \
-  --sql-admin-password "my-sql-password" \
-  --publisher-admin-users "admin1@contoso.com,admin2@contoso.com"
+bash install.sh
+--rg-name "my-resource-group"
+--location "westus2"
+--vb365-vm-name "vb365-vm"
+--vspc-vm-name "vspc-vm"
+--vm-username "my-username"
+--vm-password "my-password"
+--vnet-name "my-vnet"
+--subnet-name "my-subnet"
+--logic-app-name "my-logic-app"
+--webapp-name-prefix "my-webapp"
+--sql-server-name "my-sql-server"
+--sql-admin-login "my-sql-username"
+--sql-admin-password "my-sql-password"
+--publisher-admin-users "admin1@contoso.com,admin2@contoso.com"
 
-Usage:
+markdown
 
-To use this solution, follow these
 
-   The script expects some input parameters to be passed in when it is executed. Here is a list of the parameters you need to provide:
-   
-Static parameters:
-( these are maintained with the code )
+### Usage
 
-saas_repo: The URL of the GitHub repository that contains the Commercial Marketplace SaaS Accelerator.
+To use this solution, follow these steps:
 
-image_publisher: The publisher name for the VM images.
+The script expects some input parameters to be passed in when it is executed. Here is a list of the parameters you need to provide:
 
-image_offer_VSPC: The offer name for the Veeam Service Provider Console VM image.
+#### Static parameters
+(these are maintained with the code)
 
-image_offer_VB365: The offer name for the Veeam Backup for Office 365 VM image.
+- `saas_repo`: The URL of the GitHub repository that contains the Commercial Marketplace SaaS Accelerator.
+- `image_publisher`: The publisher name for the VM images.
+- `image_offer_VSPC`: The offer name for the Veeam Service Provider Console VM image.
+- `image_offer_VB365`: The offer name for the Veeam Backup for Office 365 VM image.
+- `image_VSPC_sku`: The SKU name for the Veeam Service Provider Console VM image.
+- `image_365_sku`: The SKU name for the Veeam Backup for Office 365 VM image.
 
-image_VSPC_sku: The SKU name for the Veeam Service Provider Console VM image.
+#### Global Parameters
+(These are set by the user, but used more than once throughout the scripts)
 
-image_365_sku: The SKU name for the Veeam Backup for Office 365 VM image.
+- `ResourceGroupForDeployment`: The name of the resource group in which to deploy the solution.
+- `Location`: The Azure region in which to deploy the solution.
 
-Global Parameters:
-( These are set by user , but used more than once throughout the scripts )
+#### Required Parameters for Deploying
+(These are set by the user, but specific to creating 2 VMs)
 
-ResourceGroupForDeployment: The name of the resource group in which to deploy the solution.
+- `vb365_vm_name`: The name of the virtual machine for Veeam Backup for Office 365.
+- `vspc_vm_name`: The name of the virtual machine for Veeam Service Provider Console.
+- `vm_username`: The administrator username for the virtual machines.
+- `vm_password`: The administrator password for the virtual machines.
+- `vnet_name`: The name of the virtual network in which to deploy the virtual machines.
+- `subnet_name`: The name of the subnet in which to deploy the virtual machines.
 
-Location: The Azure region in which to deploy the solution.
+#### Required Parameters for Deploying Logic App and Web App
+(These are set by the user, but specific to creating Logic App & deploying MS SaaS accelerator)
 
-Required Parameters for Deploying :
-( These are set by user , But specific to creating 2 VMs ) 
-
-vb365_vm_name: The name of the virtual machine for Veeam Backup for Office 365.
-
-vspc_vm_name: The name of the virtual machine for Veeam Service Provider Console.
-
-vm_username: The administrator username for the virtual machines.
-
-vm_password: The administrator password for the virtual machines.
-
-vnet_name: The name of the virtual network in which to deploy the virtual machines.
-
-subnet_name: The name of the subnet in which to deploy the virtual machines.
-
-Required Parameters for Deploying Logic App and Web App
-( These are set by user , But specific to creating Logic App & deploying MS SaaS accelerator ) 
-
-logic_app_name: The name of the Logic App workflow.
-
-WebAppNamePrefix: The prefix of the name of the Web App.
-
-SQLServerName: The name of the SQL Server.
-
-SQLAdminLogin: The administrator login for the SQL Server.
-
-SQLAdminLoginPassword: The administrator password for the SQL Server.
-
-PublisherAdminUsers: The email address of the administrator to add as a Publisher admin.
+- `logic_app_name`: The name of the Logic App workflow.
+- `WebAppNamePrefix`: The prefix of the name of the Web App.
+- `SQLServerName`: The name of the SQL Server.
+- `SQLAdminLogin`: The administrator login for the SQL Server.
+- `SQLAdminLoginPassword`: The administrator password for the SQL Server.
+- `PublisherAdminUsers`: The email address of the administrator to add as a Publisher admin.
 
 These parameters allow you to customize the deployment of the solution to fit your specific needs.
 
