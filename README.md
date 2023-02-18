@@ -79,21 +79,20 @@ To install this solution, follow these steps:
 2. Run the Install Script 
 
 ```bash 
-install.sh \
-  --rg-name "my-resource-group" \
-  --location "westus2" \
-  --vb365-vm-name "vb365-vm" \
-  --vspc-vm-name "vspc-vm" \
-  --vm-username "my-username" \
-  --vm-password "my-password" \
-  --vnet-name "my-vnet" \
-  --subnet-name "my-subnet" \
-  --logic-app-name "my-logic-app" \
-  --webapp-name-prefix "my-webapp" \
-  --sql-server-name "my-sql-server" \
-  --sql-admin-login "my-sql-username" \
-  --sql-admin-password "my-sql-password" \
-  --publisher-admin-users "admin1@contoso.com,admin2@contoso.com"
+./install.sh  -r <YourResourceGroupName> \
+              -l <YourAzureLocation> \
+              -v <YourVMName1> \
+              -s <YourVMName2> \
+              -u <YourVMUsername> \
+              -p <YourVMPassword> \
+              -n <YourVNetName> \
+              -w <YourSubnetName> \
+              -m <YourLogicAppName> \
+              -a <YourWebAppNamePrefix> \
+              -b <YourSQLserverName> \
+              -c <YourSQLUsername> \
+              -d <YourSQLPassword> \
+              -e <AdminEmailForAccess>
 ```
 
 ### Usage
