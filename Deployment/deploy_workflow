@@ -1,23 +1,23 @@
 #!/bin/bash
 
+# Define the required parameters
 rg_name=$1
-workflow_zip=$2
-vm_name=$3
-vm_username=$4
-vm_password=$5
+vnet_name=$2
+subnet_name=$3
+logic_app_name=$4
+location=$5
 
-# Extract the workflow ZIP file
-unzip $workflow_zip
+# Get the subnet ID
+subnet_id=$(az network vnet subnet show --resource-group $rg_name --vnet-name $vnet_name --name $subnet_name --query id --output tsv)
 
-# Replace the parameters in the workflow definition
-sed -i "s/{vm_name}/$vm_name/g" ./workflow-definition.json
-sed -i "s/{vm_username}/$vm_username/g" ./workflow-definition.json
-sed -i "s/{vm_password}/$vm_password/g" ./workflow-definition.json
+# Create the Logic App
+az logic workflow create --resource-group $rg_name --name $logic_app_name --location $location
+
+# Update the Logic App to use the correct subnet
+az logic workflow update --resource-group $rg_name --name $logic_app_name --subnet $subnet_id
 
 # Deploy the Logic App workflow
-az logic workflow create \
-    --resource-group $rg_name \
-    --definition @"./workflow-definition.json"
+az logic workflow import --resource-group $rg_name --name $logic_app_name --input-file "/VB365-as-a-Service/Project Amafu/LogicApp/Mail-Trigger/workflow.json"
 
-# Print a message for the user
-echo "Logic App
+# Print confirmation message
+echo "Logic App deployed successfully!"
