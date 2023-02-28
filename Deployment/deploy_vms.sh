@@ -23,7 +23,7 @@ az network vnet subnet create --name $subnet_name --resource-group $rg_name --vn
 
 # Deploy the first VM
 az vm create \
-    --name $VSPC_vm_name\
+    --name $VSPC_vm_name \
     --resource-group $rg_name \
     --image $image_publisher:$image_offer_VSPC:$image_VSPC_sku:latest \
     --admin-username $vm_username \
