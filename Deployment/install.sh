@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Parse command line arguments
-while getopts ":r:l:v:s:u:p:n:w:m:a:b:c:" opt; do
+while getopts ":r:l:v:s:u:p:n:w:m:a:b:c:d:e:" opt; do
   case $opt in
     r) resource_group="$OPTARG"
     ;;
