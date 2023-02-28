@@ -30,19 +30,20 @@ az vm create \
     --admin-password $vm_password \
     --size Standard_DS1_v2 \
     --vnet-name $vnet_name \
-    --subnet $subnet_name
+    --subnet $subnet_name \
+    --public-ip-address '""' 
 
 # Wait until the VM is fully provisioned
 az vm wait --name $VSPC_vm_name --resource-group $rg_name --created
 
 # Get the VM IP address
-vm1_ip=$(az vm show --name $VSPC_vm_name --resource-group $rg_name --query publicIps --output tsv)
+vm1_ip=$(az vm show --name $VSPC_vm_name --resource-group $rg_name --query privateIps --output tsv)
 
 # Print the VM IP address and credentials for the user
 echo "VSPC VM  deployed successfully!"
-echo "VSPC IP address: $vm1_ip"
-echo "Username: $vm_username"
-echo "Password: $vm_password"
+echo 'VSPC IP address: '$vm1_ip
+echo 'Username: '$vm_username
+echo 'Password: '$vm_password
 
 # Deploy the second VM
 az vm create \
@@ -53,16 +54,17 @@ az vm create \
     --admin-password $vm_password \
     --size Standard_DS1_v2 \
     --vnet-name $vnet_name \
-    --subnet $subnet_name
+    --subnet $subnet_name \
+    --public-ip-address '""' 
 
 # Wait until the VM is fully provisioned
 az vm wait --name $vb365_vm_name --resource-group $rg_name --created
 
 # Get the VM IP address
-vm2_ip=$(az vm show --name $vb365_vm_name --resource-group $rg_name --query publicIps --output tsv)
+vm2_ip=$(az vm show --name $vb365_vm_name --resource-group $rg_name --query privateIps  --output tsv)
 
 # Print the VM IP address and credentials for the user
 echo "VB365 VM  deployed successfully!!"
-echo "VB365 IP address: $vm2_ip"
-echo "Username: $vm_username"
-echo "Password: $vm_password"
+echo 'VB365 IP address: '$vm2_ip
+echo 'Username: '$vm_username
+echo 'Password: '$vm_password
