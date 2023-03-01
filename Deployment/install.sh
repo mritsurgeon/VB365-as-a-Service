@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Parse command line arguments
-while getopts ":r:l:v:s:u:p:n:w:m:a:b:c:d:e:" opt; do
+while getopts ":r:l:v:s:u:p:n:w:m:a:b:e:" opt; do
   case $opt in
     r) resource_group="$OPTARG"
     ;;
@@ -24,10 +24,6 @@ while getopts ":r:l:v:s:u:p:n:w:m:a:b:c:d:e:" opt; do
     a) WebAppNamePrefix="$OPTARG"
     ;;
     b) SQLServerName="$OPTARG"
-    ;;
-    c) SQLAdminLogin="$OPTARG"
-    ;;
-    d) SQLAdminLoginPassword="$OPTARG"
     ;;
     e) PublisherAdminUsers="$OPTARG"
     ;;
