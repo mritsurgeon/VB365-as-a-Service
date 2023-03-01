@@ -31,7 +31,7 @@ az vm create \
     --size Standard_DS1_v2 \
     --vnet-name $vnet_name \
     --subnet $subnet_name \
-    --public-ip-address '""' 
+    --public-ip-address ""
 
 # Wait until the VM is fully provisioned
 az vm wait --name $VSPC_vm_name --resource-group $rg_name --created
@@ -55,7 +55,7 @@ az vm create \
     --size Standard_DS1_v2 \
     --vnet-name $vnet_name \
     --subnet $subnet_name \
-    --public-ip-address '""' 
+    --public-ip-address ""
 
 # Wait until the VM is fully provisioned
 az vm wait --name $vb365_vm_name --resource-group $rg_name --created
