@@ -11,11 +11,10 @@ git clone $saas_repo
 WebAppNamePrefix=$3
 SQLServerName=$4
 PublisherAdminUsers=$5
-Location=$6
 
 
 # Call the Deploy.ps1 script
-pwsh ./Commercial-Marketplace-SaaS-Accelerator/deployment/Deploy.ps1 -WebAppNamePrefix $WebAppNamePrefix -SQLServerName $SQLServerName -PublisherAdminUsers $PublisherAdminUsers -ResourceGroupForDeployment $ResourceGroupForDeployment -Location $Location
+pwsh ./Commercial-Marketplace-SaaS-Accelerator/deployment/Deploy.ps1 -WebAppNamePrefix $WebAppNamePrefix -SQLServerName $SQLServerName -PublisherAdminUsers $PublisherAdminUsers -ResourceGroupForDeployment $ResourceGroupForDeployment
 
 # Print a message for the user
 echo "SaaS accelerator deployed successfully!!"
