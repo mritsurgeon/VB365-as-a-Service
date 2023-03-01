@@ -65,8 +65,6 @@ image_365_sku="veeamoffice365backup"
   "$saas_repo" \
   "$WebAppNamePrefix" \
   "$SQLServerName" \
-  "$SQLAdminLogin" \
-  "$SQLAdminLoginPassword" \
   "$PublisherAdminUsers" \
   "$location"
 
