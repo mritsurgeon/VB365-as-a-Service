@@ -1,26 +1,26 @@
 {
   "Password": {
     "type": "String",
-    "value": "Veeam@demo123"
+    "value": "VSPC PASSWORD"
   },
   "VB365Server": {
     "type": "String",
-    "value": "VBM365v7"
+    "value": "VB365 SERVER NAME"
   },
   "VCCsite": {
     "type": "String",
-    "value": "main"
+    "value": "VCC SITE NAME"
   },
   "VSPCURL": {
     "type": "String",
-    "value": "https://vspc.eastus.cloudapp.azure.com:1280/"
+    "value": "VSPC URL"
   },
   "servername": {
     "type": "String",
-    "value": "vspc.eastus.cloudapp.azure.com"
+    "value": "VSPC SERVER NAME"
   },
   "username": {
     "type": "String",
-    "value": "veeam"
+    "value": "VSPC USERNAME"
   }
 }
