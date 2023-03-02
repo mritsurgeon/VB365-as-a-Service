@@ -26,22 +26,64 @@ This solution is a starting point for service providers to build a similar SaaS 
 13. Change the notification settings in the admin portal to enable notifications on subscription.
 14. In the configuration, allow for auto-provisioning.
 
+## Logic App Workflows
 
-##Logic APP Workflows
+### Workflow: New Email Arrives (V3)
+Triggers when a new email is received and parses the email's body to extract the Company, Email, and Users information.
 
-Brief description of the various workflows in this project.
+- Mail Trigger: Triggers when a new email is received.
+- Parse Email to TxT: Parses the email's body to extract the Company, Email, and Users information.
+- Compose Company: Extracts the Company information from the email and initializes the Company variable.
+- Compose Email: Extracts the Email information from the email, trims it, and initializes the Email variable.
+- Compose Users: Extracts the Users information from the email, trims it, and initializes the Users variable.
 
-### Workflow 1: Send Welcome Email
+### Workflow: Get Authentication Token
+Gets an authentication token from the specified server and extracts the token from the response body.
 
-Description of the workflow.
+- HTTP POST: Sends an HTTP POST request to the specified server to get an authentication token.
+- Parse Token: Parses the JSON response body to extract the authentication token.
 
-### Workflow 2: Provision SaaS
+### Workflow: Create Company
+Creates a new company on the specified server and extracts the company ID from the response body.
 
-Description of the workflow.
+- HTTP POST: Sends an HTTP POST request to the specified server to create a new company.
+- Parse Company ID: Parses the JSON response body to extract the company ID.
 
-### Workflow 3: VCSP Provisioned Notification
+### Workflow: Generate Password
+Generates a random password using the specified JavaScript function.
 
-Description of the workflow.
+- Run JavaScript Code: Runs the specified JavaScript function to generate a random password.
+
+### Workflow: Get VCC Site UID
+Gets the UID of the specified VCC site and extracts it from the response body.
+
+- HTTP GET: Sends an HTTP GET request to the specified server to get information about the specified VCC site.
+- Parse VCC Site UID: Parses the JSON response body to extract the UID of the specified VCC site.
+
+### Workflow: Assign VCC Site
+Assigns the specified VCC site to the specified company on the specified server.
+
+- HTTP POST: Sends an HTTP POST request to the specified server to assign the specified VCC site to the specified company.
+
+### Workflow: Get VBM Resource UID
+Gets the UID of the specified VBM resource and extracts it from the response body.
+
+- HTTP GET: Sends an HTTP GET request to the specified server to get information about the specified VBM resource.
+- Parse VBM Resource UID: Parses the JSON response body to extract the UID of the specified VBM resource.
+
+### Workflow: Set VBM Resources
+Sets up the specified VBM resource for the specified company on the specified server.
+
+- HTTP POST: Sends an HTTP POST request to the specified server to set up the specified VBM resource for the specified company.
+
+### Workflow: Send Welcome Email
+Sends a welcome email to the specified email address with the specified password.
+
+- HTTP POST: Sends an HTTP POST request to the specified server to send a welcome email to the specified email address with the specified password.
+
+#### Additional Workflows
+- New Email: Customer Welcome
+- New Email: VCSP Provisioned Notification
 
 ## Built With
 
@@ -49,7 +91,7 @@ Description of the workflow.
 
 ## Authors
 
-List the authors of the project and their contributions.
+Ian Engelbrecht 
 
 ## License
 
@@ -93,6 +135,20 @@ To install this solution, follow these steps:
               -c <YourSQLUsername> \
               -d <YourSQLPassword> \
               -e <AdminEmailForAccess>
+```
+## Example
+```bash 
+PS /home/ian> gh repo clone mritsurgeon/VB365-as-a-Service
+Cloning into 'VB365-as-a-Service'...
+remote: Enumerating objects: 172, done.
+remote: Counting objects: 100% (54/54), done.
+remote: Compressing objects: 100% (51/51), done.
+remote: Total 172 (delta 34), reused 3 (delta 3), pack-reused 118
+Receiving objects: 100% (172/172), 48.28 KiB | 3.71 MiB/s, done.
+Resolving deltas: 100% (76/76), done.
+PS /home/ian> chmod -R u+x VB365-as-a-Service/
+PS /home/ian> cd ./VB365-as-a-Service/Deployment/
+PS /home/ian/VB365-as-a-Service/Deployment> ./install.sh  -r vb365testRSA -l "East US" -v vm1 -s vm2 -u veeam -p "Veeam@demo123" -n 365 -w logicapp -m mailtrigger -a vbsaas -b vbsaas -c veeam -d veeamdemo -e "ian@contoso.com"
 ```
 
 ### Usage
