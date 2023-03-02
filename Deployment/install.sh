@@ -61,7 +61,9 @@ image_365_sku="veeamoffice365backup"
   "$saas_repo" \
   "$WebAppNamePrefix" \
   "$SQLServerName" \
-  "$PublisherAdminUsers"
+  "$PublisherAdminUsers" \
+  "$location"
+
 
 # Deploy the Logic App workflow
 ./deploy_workflow.sh "$resource_group" \
