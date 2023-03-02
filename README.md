@@ -85,7 +85,7 @@ Sends a welcome email to the specified email address with the specified password
 - New Email: Customer Welcome
 - New Email: VCSP Provisioned Notification
 
-## The Workflow requires the following Parameters to be set in Azure Logic app:
+#### The Workflow requires the following Parameters to be set in Azure Logic app:
 
 ```json
 {
