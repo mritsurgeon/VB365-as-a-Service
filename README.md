@@ -92,6 +92,9 @@ Sends a welcome email to the specified email address with the specified password
 ## Authors
 
 Ian Engelbrecht 
+http://www.mritsurgeon.co.za/
+@mritsurgeon_ian
+https://www.linkedin.com/in/ian-veeam/
 
 ## License
 
