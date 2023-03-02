@@ -85,9 +85,41 @@ Sends a welcome email to the specified email address with the specified password
 - New Email: Customer Welcome
 - New Email: VCSP Provisioned Notification
 
+The Workflow requires the follwoing Parameters to be set in Azure Logic app:
+
+```json
+{
+  "Password": {
+    "type": "String",
+    "value": "VSPC PASSWORD"
+  },
+  "VB365Server": {
+    "type": "String",
+    "value": "VB365 SERVER NAME"
+  },
+  "VCCsite": {
+    "type": "String",
+    "value": "VCC SITE NAME"
+  },
+  "VSPCURL": {
+    "type": "String",
+    "value": "VSPC URL"
+  },
+  "servername": {
+    "type": "String",
+    "value": "VSPC SERVER NAME"
+  },
+  "username": {
+    "type": "String",
+    "value": "VSPC USERNAME"
+  }
+  ```
+
 ## Built With
 
 - Azure Logic Apps - Cloud-based service for automating workflows and business processes.
+- Bash scripts 
+- Microsoft Commercial Marketplace - Community Code for SaaS Applications : https://github.com/Azure/Commercial-Marketplace-SaaS-Accelerator
 
 ## Authors
 
