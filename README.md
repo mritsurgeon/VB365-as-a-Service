@@ -108,8 +108,8 @@ This project is licensed under the MIT License.
 
 - An Azure subscription with sufficient permissions to create and manage Logic Apps and Function Apps.
 - An Office 365 account with sufficient permissions to read and write emails.
-- A SendGrid account to send emails to customers.
-- A Twilio account to send SMS messages to customers.
+- A SendGrid account to send emails to customers Or equivelent SMTP.
+- A Twilio account to send SMS messages to customers Or equivelent ( optional add ) 
 - PowerShell 7.0 or later.
 - Azure PowerShell module version 6.13.1 or later.
 - .NET Core 3.1 or later.
