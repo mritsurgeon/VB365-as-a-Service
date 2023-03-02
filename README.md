@@ -126,7 +126,7 @@ https://learn.microsoft.com/en-us/azure/logic-apps/create-parameters-workflows
 
 Ian Engelbrecht   
 http://www.mritsurgeon.co.za/   
-@mritsurgeon_ian   
+Twitter @mritsurgeon_ian   
 https://www.linkedin.com/in/ian-veeam/   
 
 ## License
