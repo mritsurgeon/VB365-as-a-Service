@@ -184,7 +184,7 @@ Receiving objects: 100% (172/172), 48.28 KiB | 3.71 MiB/s, done.
 Resolving deltas: 100% (76/76), done.
 PS /home/ian> chmod -R u+x VB365-as-a-Service/
 PS /home/ian> cd ./VB365-as-a-Service/Deployment/
-PS /home/ian/VB365-as-a-Service/Deployment> ./install.sh  -r vb365testRSA -l "East US" -v vm1 -s vm2 -u veeam -p "Veeam@demo123" -n 365 -w logicapp -m mailtrigger -a vbsaas -b vbsaas -c veeam -d veeamdemo -e "ian@contoso.com"
+PS /home/ian/VB365-as-a-Service/Deployment> ./install.sh  -r vb365testRSA -l "eastus" -v vm1 -s vm2 -u veeam -p "Veeam@demo123" -n 365 -w logicapp -m mailtrigger -a vbsaas -b vbsaas -e "ian@contoso.com"
 ```
 
 ### Usage
@@ -225,8 +225,6 @@ The script expects some input parameters to be passed in when it is executed. He
 - `logic_app_name`: The name of the Logic App workflow.
 - `WebAppNamePrefix`: The prefix of the name of the Web App.
 - `SQLServerName`: The name of the SQL Server.
-- `SQLAdminLogin`: The administrator login for the SQL Server.
-- `SQLAdminLoginPassword`: The administrator password for the SQL Server.
 - `PublisherAdminUsers`: The email address of the administrator to add as a Publisher admin.
 
 These parameters allow you to customize the deployment of the solution to fit your specific needs.
