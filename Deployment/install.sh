@@ -66,7 +66,7 @@ image_365_sku="veeamoffice365backup"
 
 
 # Deploy the Logic App workflow
-cd ..
+
 ./deploy_workflow.sh "$resource_group" \
   "$vnet_name" \
   "$subnet_name" \
