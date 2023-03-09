@@ -168,8 +168,6 @@ To install this solution, follow these steps:
               -m <YourLogicAppName> \
               -a <YourWebAppNamePrefix> \
               -b <YourSQLserverName> \
-              -c <YourSQLUsername> \
-              -d <YourSQLPassword> \
               -e <AdminEmailForAccess>
 ```
 ## Example
