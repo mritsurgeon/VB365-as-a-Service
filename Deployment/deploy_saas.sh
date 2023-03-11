@@ -15,8 +15,8 @@ location=$6
 
 
 # Call the Deploy.ps1 script
-cd Commercial-Marketplace-SaaS-Accelerator/
-pwsh ./deployment/Deploy.ps1 -WebAppNamePrefix $WebAppNamePrefix -SQLServerName $SQLServerName -PublisherAdminUsers $PublisherAdminUsers -ResourceGroupForDeployment $ResourceGroupForDeployment $location
+cd ./Commercial-Marketplace-SaaS-Accelerator/deployment
+pwsh ./Deploy.ps1 -WebAppNamePrefix $WebAppNamePrefix -SQLServerName $SQLServerName -PublisherAdminUsers $PublisherAdminUsers -ResourceGroupForDeployment $ResourceGroupForDeployment $location
 
 # Print a message for the user
 echo "SaaS accelerator deployed successfully!!"
