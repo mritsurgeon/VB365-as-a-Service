@@ -43,7 +43,7 @@
         },
         "storageAccountName": {
             "type": "string",
-            "defaultValue":"vb365saas2023"
+            "defaultValue":"vb365saaslogic"
         },
         "subscriptionId": {
             "type": "string"
