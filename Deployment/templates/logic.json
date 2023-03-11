@@ -54,7 +54,7 @@
         "inboundSubnetDeployment": "inboundSubnetDeployment",
         "outboundSubnetDeployment": "outboundSubnetDeployment",
         "storageSubnetDeployment": "storageSubnetDeployment",
-        "hostingPlanName" : "hostingPlanName"
+        "hostingPlanName": "hostingPlanName"
     },
     "resources": [
         {
