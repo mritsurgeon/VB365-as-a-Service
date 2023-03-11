@@ -64,7 +64,7 @@
             "location": "[parameters('location')]",
             "tags": {},
             "dependsOn": [
-                "[concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]",
                 "[variables('outboundSubnetDeployment')]"            ],
             "properties": {
                 "name": "[parameters('name')]",
