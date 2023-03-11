@@ -166,7 +166,7 @@
         {
             "apiVersion": "2019-06-01",
             "type": "Microsoft.Storage/storageAccounts",
-            "name": "[parameters('name')]",
+            "name": "[parameters('storageAccountName')]",
             "location": "[parameters('location')]",
             "tags": {},
             "kind": "StorageV2",
