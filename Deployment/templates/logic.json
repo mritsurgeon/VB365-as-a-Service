@@ -16,12 +16,12 @@
             "type": "string"
         },
         "alwaysOn": {
-            "type": "bool",
-            "defaultValue": "true"
+            "type": "bool" ,
+            "defaultValue": false
         },
         "use32BitWorkerProcess": {
             "type": "bool",
-            "defaultValue": "false"
+            "defaultValue": false
         },
         "ftpsState": {
             "type": "string",
