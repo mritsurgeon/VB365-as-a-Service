@@ -27,6 +27,9 @@
     "hostingPlanName": {
       "type": "string",
       "defaultValue": "Standard"
+    },
+    "definitionURI": {
+      "type": "string"
     }
   },
   "variables": {
@@ -42,13 +45,12 @@
       "location": "[parameters('location')]",
       "properties": {
         "state": "Enabled",
-        "definition": null,
-        "definitionLink": {
-          "uri": "https://raw.githubusercontent.com/mritsurgeon/VB365-as-a-Service/main/Project%20Amafu/LogicApp/Mail-Trigger/workflow.json",
-          "contentVersion": "1.0.0.0"
+        "definition": {
+          "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+          "contentVersion": "1.0.0.0",
+          "definition": "[concat(variables('definitionUrl'), parameters('definitionURI'))]"
         },
         "parameters": {},
-        "parametersLink": null,
         "sku": {
           "name": "Standard",
           "plan": {
