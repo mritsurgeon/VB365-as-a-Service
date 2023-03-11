@@ -10,7 +10,7 @@
         },
         "hostingPlanName": {
             "type": "string",
-            "defaultValue": "[concat(parameters('name'),'-plan')]",
+            "defaultValue": "WorkflowStandard"
         },
         "serverFarmResourceGroup": {
             "type": "string"
