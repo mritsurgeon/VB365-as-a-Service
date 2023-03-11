@@ -42,44 +42,23 @@
     },
     "resources": [
         {
-            "type": "Microsoft.Network/virtualNetworks",
-            "apiVersion": "2017-06-01",
-            "name": "[parameters('vnetName')]",
-            "location": "[parameters('location')]",
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "apiVersion": "2021-02-01",
+            "name": "[concat(parameters('vnetName'), '/', parameters('subnetName'))]",
             "properties": {
-                "addressSpace": {
-                    "addressPrefixes": [
-                        "10.0.0.0/16"
-                    ]
-                },
-                "subnets": [
+                "addressPrefix": "10.0.0.0/24",
+                "delegations": [
                     {
-                        "type": "Microsoft.Network/virtualNetworks/subnets",
-                        "apiVersion": "2017-06-01",
-                        "name": "[parameters('subnetName')]",
+                        "name": "logicappDelegation",
                         "properties": {
-                            "addressPrefix": "10.0.0.0/24",
-                            "delegations": [
-                                {
-                                    "name": "logicappDelegation",
-                                    "properties": {
-                                        "serviceName": "Microsoft.Logic/workflows"
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "type": "Microsoft.Network/virtualNetworks/subnets",
-                        "apiVersion": "2017-06-01",
-                        "name": "newSubnet",
-                        "properties": {
-                            "addressPrefix": "10.0.1.0/24"
+                            "serviceName": "Microsoft.Logic/workflows"
                         }
                     }
                 ]
             }
-        },
+        }
+    ]
+}
         {
             "type": "Microsoft.Logic/workflows",
             "apiVersion": "2017-07-01",
