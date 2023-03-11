@@ -53,8 +53,8 @@
     "variables": {
         "inboundSubnetDeployment": "inboundSubnetDeployment",
         "outboundSubnetDeployment": "outboundSubnetDeployment",
-        "storageSubnetDeployment": "storageSubnetDeployment",
-        "hostingPlanName": "hostingPlanName"
+        "storageSubnetDeployment": "storageSubnetDeployment"
+        
     },
     "resources": [
         {
@@ -67,7 +67,7 @@
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]",
                 "[variables('outboundSubnetDeployment')]",
-                "[variables('hostingPlanName')]"
+                "[parameters('hostingPlanName')]"
             ],
             "properties": {
                 "name": "[parameters('name')]",
