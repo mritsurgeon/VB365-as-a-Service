@@ -1,0 +1,87 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "subscriptionId": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "hostingPlanName": {
+      "type": "string"
+    },
+    "serverFarmResourceGroup": {
+      "type": "string"
+    },
+    "alwaysOn": {
+      "type": "bool"
+    },
+    "use32BitWorkerProcess": {
+      "type": "bool"
+    },
+    "ftpsState": {
+      "type": "string"
+    },
+    "storageAccountName": {
+      "type": "string"
+    },
+    "netFrameworkVersion": {
+      "type": "string"
+    },
+    "networkInjectionEnabled": {
+      "type": "bool",
+      "defaultValue": false
+    },
+    "enableInboundNetworkAccess": {
+      "type": "bool",
+      "defaultValue": false
+    },
+    "enableOutboundNetworkAccess": {
+      "type": "bool",
+      "defaultValue": true
+    },
+    "newOutboundSubnetName": {
+      "type": "string",
+      "defaultValue": "LogicAppOutboundSubnet"
+    }
+  },
+  "variables": {
+    "inboundSubnetDeployment": "inboundSubnetDeployment",
+    "outboundSubnetDeployment": "outboundSubnetDeployment",
+    "storageSubnetDeployment": "storageSubnetDeployment"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Logic/workflows",
+      "apiVersion": "2017-07-01",
+      "name": "[parameters('name')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "state": "Enabled",
+        "definition": {
+          "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+          "actions": {},
+          "contentVersion": "1.0.0.0",
+          "outputs": {},
+          "parameters": {},
+          "triggers": {}
+        },
+        "definitionLink": null,
+        "parameters": {},
+        "parametersLink": null,
+        "sku": {
+          "name": "Standard",
+          "plan": {
+            "id": "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]",
+            "name": "[parameters('hostingPlanName')]"
+          }
+        }
+      }
+    }
+  ],
+  "outputs": {}
+}
