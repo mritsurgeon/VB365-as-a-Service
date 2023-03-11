@@ -1,89 +1,91 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "1.0.0.0",
-  "parameters": {
-    "name": {
-      "type": "string"
-    },
-    "location": {
-      "type": "string"
-    },
-    "networkInjectionEnabled": {
-      "type": "bool",
-      "defaultValue": false
-    },
-    "enableInboundNetworkAccess": {
-      "type": "bool",
-      "defaultValue": false
-    },
-    "enableOutboundNetworkAccess": {
-      "type": "bool",
-      "defaultValue": true
-    },
-    "newOutboundSubnetName": {
-      "type": "string",
-      "defaultValue": "LogicAppOutboundSubnet"
-    },
-    "hostingPlanName": {
-      "type": "string",
-      "defaultValue": "Standard"
-    },
-    "definitionURI": {
-      "type": "string"
-    },
-    "vnetName": {
-      "type": "string"
-    }
-  },
-  "variables": {
-    "inboundSubnetDeployment": "inboundSubnetDeployment",
-    "outboundSubnetDeployment": "outboundSubnetDeployment",
-    "storageSubnetDeployment": "storageSubnetDeployment"
-  },
-  "resources": [
-    {
-      "type": "Microsoft.Logic/workflows",
-      "apiVersion": "2017-07-01",
-      "name": "[parameters('name')]",
-      "location": "[parameters('location')]",
-      "dependsOn": [
-        "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]",
-        "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'), '/subnets/', variables('outboundSubnetDeployment'))]"
-      ],
-      "properties": {
-        "state": "Enabled",
-        "definition": {
-          "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
-          "contentVersion": "1.0.0.0",
-          "definition": "[concat(variables('definitionUrl'), parameters('definitionURI'))]"
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "name": {
+            "type": "string"
         },
-        "parameters": {},
-        "sku": {
-          "name": "Standard",
-          "plan": {
-            "id": "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]",
-            "name": "[parameters('hostingPlanName')]"
-          }
+        "location": {
+            "type": "string"
         },
-        "integrationAccount": {
-          "id": "[concat(resourceId('Microsoft.Logic/workflows', parameters('name')), '/integrationAccounts/', variables('integrationAccountName'))]"
+        "networkInjectionEnabled": {
+            "type": "bool",
+            "defaultValue": false
         },
-        "accessControl": {
-          "enabled": "[parameters('networkInjectionEnabled')]"
+        "enableInboundNetworkAccess": {
+            "type": "bool",
+            "defaultValue": false
         },
-        "triggers": {
-          "manual": {
-            "inputs": {},
-            "recurrence": {
-              "frequency": "Minute",
-              "interval": 15
-            },
-            "type": "Request"
-          }
+        "enableOutboundNetworkAccess": {
+            "type": "bool",
+            "defaultValue": true
         },
-        "parametersLink": {
-          "uri": "[parameters('parametersURI')]",
-          "contentVersion": "1.0.0.0"
-              }
-      }
+        "newOutboundSubnetName": {
+            "type": "string",
+            "defaultValue": "LogicAppOutboundSubnet"
+        },
+        "hostingPlanName": {
+            "type": "string",
+            "defaultValue": "Standard"
+        },
+        "definitionURI": {
+            "type": "string"
+        },
+        "vnetName": {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "inboundSubnetDeployment": "inboundSubnetDeployment",
+        "outboundSubnetDeployment": "outboundSubnetDeployment",
+        "storageSubnetDeployment": "storageSubnetDeployment"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Logic/workflows",
+            "apiVersion": "2017-07-01",
+            "name": "[parameters('name')]",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]",
+                "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'), '/subnets/', variables('outboundSubnetDeployment'))]"
+            ],
+            "properties": {
+                "state": "Enabled",
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion": "1.0.0.0",
+                    "definition": "[concat(variables('definitionUrl'), parameters('definitionURI'))]"
+                },
+                "parameters": {},
+                "sku": {
+                    "name": "Standard",
+                    "plan": {
+                        "id": "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]",
+                        "name": "[parameters('hostingPlanName')]"
+                    }
+                },
+                "integrationAccount": {
+                    "id": "[concat(resourceId('Microsoft.Logic/workflows', parameters('name')), '/integrationAccounts/', variables('integrationAccountName'))]"
+                },
+                "accessControl": {
+                    "enabled": "[parameters('networkInjectionEnabled')]"
+                },
+                "triggers": {
+                    "manual": {
+                        "inputs": {},
+                        "recurrence": {
+                            "frequency": "Minute",
+                            "interval": 15
+                        },
+                        "type": "Request"
+                    }
+                },
+                "parametersLink": {
+                    "uri": "[parameters('parametersURI')]",
+                    "contentVersion": "1.0.0.0"
+                }
+            }
+        }
+    ]
 }
