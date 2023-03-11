@@ -17,7 +17,7 @@
         },
         "alwaysOn": {
             "type": "bool",
-            "defaultValue": false
+            "defaultValue": true
         },
         "use32BitWorkerProcess": {
             "type": "bool",
@@ -41,7 +41,6 @@
         "ResourceGroup": {
             "type": "string"
         }
-
     },
     "variables": {
         "inboundSubnetDeployment": "inboundSubnetDeployment",
@@ -57,11 +56,10 @@
             "location": "[parameters('location')]",
             "tags": {},
             "dependsOn": [
-                    "[concat('Microsoft.Storage/storageAccounts/', parameters('name'))]",
-                    "[variables('outboundSubnetDeployment')]",
-                    "[resourceId('Microsoft.Web/serverfarms', parameters('ResourceGroup'), parameters('name')]"
-                ],
-                
+                "[concat('Microsoft.Storage/storageAccounts/', parameters('name'))]",
+                "[variables('outboundSubnetDeployment')]",
+                "[resourceId('Microsoft.Web/serverfarms', parameters('ResourceGroup'), parameters('name')]"
+            ],
             "properties": {
                 "name": "[parameters('name')]",
                 "siteConfig": {
