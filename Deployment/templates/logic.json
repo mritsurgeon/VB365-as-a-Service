@@ -54,6 +54,8 @@
                 },
                 "subnets": [
                     {
+                        "type": "Microsoft.Network/virtualNetworks/subnets",
+                        "apiVersion": "2017-06-01",
                         "name": "[parameters('subnetName')]",
                         "properties": {
                             "addressPrefix": "10.0.0.0/24",
