@@ -25,7 +25,7 @@
         },
         "ftpsState": {
             "type": "string",
-            "defaultValue": "off"
+            "defaultValue": "FtpsOnly"
         },
         "netFrameworkVersion": {
             "type": "string",
