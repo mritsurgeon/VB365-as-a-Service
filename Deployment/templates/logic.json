@@ -20,7 +20,7 @@
             "type": "bool",
             "defaultValue": true
         },
-        "subnetName": {
+        "newOutboundSubnetName": {
             "type": "string",
             "defaultValue": "LogicApp"
         },
@@ -54,7 +54,7 @@
                 },
                 "subnets": [
                     {
-                        "name": "[parameters('subnetName')]",
+                        "name": "[parameters('newOutboundSubnetName')]",
                         "properties": {
                             "addressPrefix": "10.0.0.0/24",
                             "delegations": [
@@ -70,7 +70,7 @@
                     {
                         "type": "Microsoft.Network/virtualNetworks/subnets",
                         "apiVersion": "2020-07-01",
-                        "name": "[concat(parameters('vnetName'), '/subnets/', parameters('subnetName'))]",
+                        "name": "[concat(parameters('vnetName'), '/subnets/', parameters('newOutboundSubnetName'))]",
                         "properties": {
                             "delegations": [
                                 {
@@ -96,7 +96,7 @@
             "location": "[parameters('location')]",
             "dependsOn": [
                 "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]",
-                "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'), '/subnets/', parameters('subnetName'))]"
+                "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'), '/subnets/', parameters('newOutboundSubnetName'))]"
             ],
             "properties": {
                 "state": "Enabled",
