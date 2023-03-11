@@ -16,12 +16,12 @@
             "type": "string"
         },
         "alwaysOn": {
-            "type": "bool" ,
-            "defaultValue": false
+            "type": "bool",
+            "defaultValue": "true"
         },
         "use32BitWorkerProcess": {
             "type": "bool",
-            "defaultValue": false
+            "defaultValue": "false"
         },
         "ftpsState": {
             "type": "string",
@@ -37,7 +37,11 @@
         },
         "vnetName": {
             "type": "string"
+        },
+        "ResourceGroup": {
+            "type": "string"
         }
+
     },
     "variables": {
         "inboundSubnetDeployment": "inboundSubnetDeployment",
@@ -53,9 +57,11 @@
             "location": "[parameters('location')]",
             "tags": {},
             "dependsOn": [
-                "[concat('Microsoft.Storage/storageAccounts/', parameters('name'))]",
-                "[variables('outboundSubnetDeployment')]"
-            ],
+                    "[concat('Microsoft.Storage/storageAccounts/', parameters('name'))]",
+                    "[variables('outboundSubnetDeployment')]",
+                    "[resourceId('Microsoft.Web/serverfarms', parameters('ResourceGroup'), parameters('name')]"
+                ],
+                
             "properties": {
                 "name": "[parameters('name')]",
                 "siteConfig": {
