@@ -95,7 +95,7 @@
                         },
                         {
                             "name": "WEBSITE_CONTENTSHARE",
-                            "value": "vb365SaaS2023"
+                            "value": "vb365saas2023"
                         },
                         {
                             "name": "AzureFunctionsJobHost__extensionBundle__id",
