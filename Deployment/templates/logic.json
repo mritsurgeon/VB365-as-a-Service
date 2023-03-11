@@ -10,7 +10,7 @@
         },
         "hostingPlanName": {
             "type": "string",
-            "defaultValue": "ASP-RSAVBM365BaaS-b91c"
+            "defaultValue": "asp-vb365-saas"
         },
         "serverFarmResourceGroup": {
             "type": "string"
