@@ -22,7 +22,7 @@
         },
         "subnetName": {
             "type": "string",
-            "defaultValue": "logicapp"
+            "defaultValue": "api"
         },
         "hostingPlanName": {
             "type": "string",
