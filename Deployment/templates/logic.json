@@ -66,8 +66,8 @@
             "tags": {},
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]",
-                "[variables('outboundSubnetDeployment')]",
-                "[parameters('hostingPlanName')]"
+                "[variables('outboundSubnetDeployment')]"
+                
             ],
             "properties": {
                 "name": "[parameters('name')]",
