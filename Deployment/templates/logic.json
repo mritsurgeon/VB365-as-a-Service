@@ -22,7 +22,7 @@
         },
         "subnetName": {
             "type": "string",
-            "defaultValue": "logicapp"
+            "defaultValue": "api"
         },
         "hostingPlanName": {
             "type": "string",
@@ -58,7 +58,7 @@
                     "apiVersion": "2017-06-01",
                     "name": "[parameters('subnetName')]",
                     "properties": {
-                        "addressPrefix": "10.0.0.0/24",
+                        "addressPrefix": "10.0.1.0/24",
                         "delegations": [
                             {
                                 "name": "logicappDelegation",
@@ -69,14 +69,7 @@
                         ]
                     }
                 },
-                {
-                    "type": "Microsoft.Network/virtualNetworks/subnets",
-                    "apiVersion": "2017-06-01",
-                    "name": "newSubnet",
-                    "properties": {
-                        "addressPrefix": "10.0.1.0/24"
-                    }
-                }
+
             ]
         }
     },
