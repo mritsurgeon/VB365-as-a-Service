@@ -23,6 +23,10 @@
     "newOutboundSubnetName": {
       "type": "string",
       "defaultValue": "LogicAppOutboundSubnet"
+    },
+    "hostingPlanName": {
+      "type": "string",
+      "defaultValue": "Standard"
     }
   },
   "variables": {
