@@ -17,11 +17,11 @@
         },
         "alwaysOn": {
             "type": "bool",
-            "defaultValue": true
+            "defaultValue": "true"
         },
         "use32BitWorkerProcess": {
             "type": "bool",
-            "defaultValue": false
+            "defaultValue": "false"
         },
         "ftpsState": {
             "type": "string",
@@ -105,7 +105,7 @@
                 },
                 "serverFarmId": "[concat('/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
                 "clientAffinityEnabled": false,
-                "virtualNetworkSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', 'vnetName', 'subnetName')]",
+                "virtualNetworkSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnetName'))]",
                 "httpsOnly": true,
                 "publicNetworkAccess": "Disabled"
             },
@@ -128,7 +128,7 @@
                         {
                             "type": "Microsoft.Network/virtualNetworks/subnets",
                             "apiVersion": "2020-07-01",
-                            "name": "'vnetName'/'subnetName'",
+                            "name": "[concat(parameters('vnetName'), '/', parameters('subnetName'))]",
                             "properties": {
                                 "delegations": [
                                     {
