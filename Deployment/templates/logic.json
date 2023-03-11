@@ -22,7 +22,7 @@
         },
         "subnetName": {
             "type": "string",
-            "defaultValue": "api"
+            "defaultValue": "logicapp"
         },
         "hostingPlanName": {
             "type": "string",
@@ -40,56 +40,63 @@
         "outboundSubnetDeployment": "outboundSubnetDeployment",
         "storageSubnetDeployment": "storageSubnetDeployment"
     },
-   "resources": [
-    {
-        "type": "Microsoft.Network/virtualNetworks",
-        "apiVersion": "2017-06-01",
-        "name": "[parameters('vnetName')]",
-        "location": "[parameters('location')]",
-        "properties": {
-            "addressSpace": {
-                "addressPrefixes": [
-                    "10.0.0.0/16"
-                ]
-            },
-            "subnets": [
-                {
-                    "type": "Microsoft.Network/virtualNetworks/subnets",
-                    "apiVersion": "2017-06-01",
-                    "name": "[parameters('subnetName')]",
-                    "properties": {
-                        "addressPrefix": "10.0.1.0/24",
-                        "delegations": [
-                            {
-                                "name": "logicappDelegation",
-                                "properties": {
-                                    "serviceName": "Microsoft.Logic/workflows"
-                                }
-                            }
-                        ]
-                    }
+    "resources": [
+        {
+            "type": "Microsoft.Network/virtualNetworks",
+            "apiVersion": "2017-06-01",
+            "name": "[parameters('vnetName')]",
+            "location": "[parameters('location')]",
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.0.0.0/16"
+                    ]
                 },
-
-            ]
-        }
-    },
-    {
-        "type": "Microsoft.Logic/workflows",
-        "apiVersion": "2017-07-01",
-        "name": "[parameters('name')]",
-        "location": "[parameters('location')]",
-        "dependsOn": [
-            "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]",
-            "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'), '/subnets/', parameters('subnetName'))]",
-            "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'), '/subnets/newSubnet')]"
-        ],
-        "properties": {
-            "state": "Enabled",
-            "definition": {
-                "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
-                "contentVersion": "1.0.0.0"
+                "subnets": [
+                    {
+                        "type": "Microsoft.Network/virtualNetworks/subnets",
+                        "apiVersion": "2017-06-01",
+                        "name": "[parameters('subnetName')]",
+                        "properties": {
+                            "addressPrefix": "10.0.0.0/24",
+                            "delegations": [
+                                {
+                                    "name": "logicappDelegation",
+                                    "properties": {
+                                        "serviceName": "Microsoft.Logic/workflows"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "type": "Microsoft.Network/virtualNetworks/subnets",
+                        "apiVersion": "2017-06-01",
+                        "name": "newSubnet",
+                        "properties": {
+                            "addressPrefix": "10.0.1.0/24"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.Logic/workflows",
+            "apiVersion": "2017-07-01",
+            "name": "[parameters('name')]",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]",
+                "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'), '/subnets/', parameters('subnetName'))]",
+                "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'), '/subnets/newSubnet')]"
+            ],
+            "properties": {
+                "state": "Enabled",
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion": "1.0.0.0"
+                }
             }
         }
-    }
-]
+    ]
 }
