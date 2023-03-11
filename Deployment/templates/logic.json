@@ -30,28 +30,26 @@
     },
     "definitionURI": {
       "type": "string"
+    },
+    "vnetName": {
+      "type": "string"
     }
   },
   "variables": {
+    "inboundSubnetDeployment": "inboundSubnetDeployment",
     "outboundSubnetDeployment": "outboundSubnetDeployment",
     "storageSubnetDeployment": "storageSubnetDeployment"
   },
   "resources": [
     {
-      "type": "Microsoft.Network/virtualNetworks/subnets",
-      "apiVersion": "2021-02-01",
-      "name": "[concat(parameters('vnetName'), '/', parameters('newOutboundSubnetName'))]",
-      "location": "[parameters('location')]",
-      "dependsOn": [],
-      "properties": {
-        "addressPrefix": "[parameters('outboundSubnetPrefix')]"
-      }
-    },
-    {
       "type": "Microsoft.Logic/workflows",
       "apiVersion": "2017-07-01",
       "name": "[parameters('name')]",
       "location": "[parameters('location')]",
+      "dependsOn": [
+        "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]",
+        "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'), '/subnets/', variables('outboundSubnetDeployment'))]"
+      ],
       "properties": {
         "state": "Enabled",
         "definition": {
@@ -67,31 +65,22 @@
             "name": "[parameters('hostingPlanName')]"
           }
         },
+        "integrationAccount": {
+          "id": "[concat(resourceId('Microsoft.Logic/workflows', parameters('name')), '/integrationAccounts/', variables('integrationAccountName'))]"
+        },
         "accessControl": {
-          "triggers": {
-            "allowedHttpMethods": [
-              "POST"
-            ],
-            "defaultAuthorization": {
-              "action": "Allow"
-            }
-          },
-          "inputs": {
-            "host": {
-              "connection": {
-                "name": "@parameters('$connections')['shared_sharepointonline']['connectionId']"
-              }
-            }
+          "enabled": "[parameters('networkInjectionEnabled')]"
+        },
+        "triggers": {
+          "manual": {
+            "inputs": {},
+            "recurrence": {
+              "frequency": "Minute",
+              "interval": 15
+            },
+            "type": "Request"
           }
         },
-        "integrationAccount": {},
-        "parametersLink": {},
-        "triggers": {},
-        "x-ms-api-management": {},
-        "x-ms-workflow-etag": "",
-        "x-ms-workflow-version": ""
-      }
-    }
-  ],
-  "outputs": {}
-}
+        "parametersLink": {
+          "uri": "[parameters('parametersURI')]",
+          "contentVersion": "1.0.0.
