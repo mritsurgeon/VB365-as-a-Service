@@ -1,5 +1,5 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
         "name": {
@@ -8,28 +8,32 @@
         "location": {
             "type": "string"
         },
-        "networkInjectionEnabled": {
-            "type": "bool",
-            "defaultValue": false
-        },
-        "enableInboundNetworkAccess": {
-            "type": "bool",
-            "defaultValue": false
-        },
-        "enableOutboundNetworkAccess": {
-            "type": "bool",
-            "defaultValue": true
-        },
-        "subnetName": {
-            "type": "string",
-            "defaultValue": "api"
-        },
         "hostingPlanName": {
             "type": "string",
             "defaultValue": "Standard"
         },
-        "definitionURI": {
+        "serverFarmResourceGroup": {
             "type": "string"
+        },
+        "alwaysOn": {
+            "type": "bool",
+            "defaultValue": "true"
+        },
+        "use32BitWorkerProcess": {
+            "type": "bool",
+            "defaultValue": "false"
+        },
+        "ftpsState": {
+            "type": "string",
+            "defaultValue": "off"
+        },
+        "netFrameworkVersion": {
+            "type": "string",
+            "defaultValue": "4.7.2"
+        },
+        "subnetName": {
+            "type": "string",
+            "defaultValue": "api"
         },
         "vnetName": {
             "type": "string"
@@ -42,36 +46,124 @@
     },
     "resources": [
         {
-            "type": "Microsoft.Network/virtualNetworks/subnets",
-            "apiVersion": "2017-06-01",
-            "name": "[concat(parameters('vnetName'), '/', parameters('subnetName'))]",
+            "apiVersion": "2018-11-01",
+            "name": "[parameters('name')]",
+            "type": "Microsoft.Web/sites",
+            "kind": "functionapp,workflowapp",
+            "location": "[parameters('location')]",
+            "tags": {},
+            "dependsOn": [
+                "[concat('Microsoft.Storage/storageAccounts/', parameters('name'))]",
+                "[variables('outboundSubnetDeployment')]"
+            ],
             "properties": {
-                "addressPrefix": "10.0.0.0/24",
-                "delegations": [
-                    {
-                        "name": "logicappDelegation",
-                        "properties": {
-                            "serviceName": "Microsoft.Logic/workflows"
+                "name": "[parameters('name')]",
+                "siteConfig": {
+                    "appSettings": [
+                        {
+                            "name": "FUNCTIONS_EXTENSION_VERSION",
+                            "value": "~4"
+                        },
+                        {
+                            "name": "FUNCTIONS_WORKER_RUNTIME",
+                            "value": "node"
+                        },
+                        {
+                            "name": "WEBSITE_NODE_DEFAULT_VERSION",
+                            "value": "~16"
+                        },
+                        {
+                            "name": "AzureWebJobsStorage",
+                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('name'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('name')), '2019-06-01').keys[0].value,';EndpointSuffix=','core.windows.net')]"
+                        },
+                        {
+                            "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
+                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('name'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('name')), '2019-06-01').keys[0].value,';EndpointSuffix=','core.windows.net')]"
+                        },
+                        {
+                            "name": "WEBSITE_CONTENTSHARE",
+                            "value": "vb365SaaS"
+                        },
+                        {
+                            "name": "AzureFunctionsJobHost__extensionBundle__id",
+                            "value": "Microsoft.Azure.Functions.ExtensionBundle.Workflows"
+                        },
+                        {
+                            "name": "AzureFunctionsJobHost__extensionBundle__version",
+                            "value": "[1.*, 2.0.0)"
+                        },
+                        {
+                            "name": "APP_KIND",
+                            "value": "workflowApp"
                         }
-                    }
-                ]
+                    ],
+                    "cors": {},
+                    "use32BitWorkerProcess": "[parameters('use32BitWorkerProcess')]",
+                    "ftpsState": "[parameters('ftpsState')]",
+                    "vnetRouteAllEnabled": true,
+                    "netFrameworkVersion": "[parameters('netFrameworkVersion')]"
+                },
+                "serverFarmId": "[concat('/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
+                "clientAffinityEnabled": false,
+                "virtualNetworkSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', 'vnetName', 'subnetName')]",
+                "httpsOnly": true,
+                "publicNetworkAccess": "Disabled"
+            },
+            "identity": {
+                "type": "SystemAssigned"
             }
         },
         {
-            "type": "Microsoft.Logic/workflows",
-            "apiVersion": "2017-07-01",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2020-07-01",
+            "name": "[variables('outboundSubnetDeployment')]",
+            "properties": {
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {},
+                    "variables": {},
+                    "resources": [
+                        {
+                            "type": "Microsoft.Network/virtualNetworks/subnets",
+                            "apiVersion": "2020-07-01",
+                            "name": "'vnetName'/'subnetName'",
+                            "properties": {
+                                "delegations": [
+                                    {
+                                        "name": "delegation",
+                                        "properties": {
+                                            "serviceName": "Microsoft.Web/serverfarms"
+                                        }
+                                    }
+                                ],
+                                "serviceEndpoints": [
+                                    {
+                                        "service": "Microsoft.Storage"
+                                    }
+                                ],
+                                "addressPrefix": "10.0.1.0/24"
+                            }
+                        }
+                    ]
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "apiVersion": "2019-06-01",
+            "type": "Microsoft.Storage/storageAccounts",
             "name": "[parameters('name')]",
             "location": "[parameters('location')]",
-            "dependsOn": [
-                "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]",
-                "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'), '/subnets/', parameters('subnetName'))]",
-            ],
+            "tags": {},
+            "kind": "StorageV2",
+            "sku": {
+                "name": "Standard_LRS"
+            },
             "properties": {
-                "state": "Enabled",
-                "definition": {
-                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
-                    "contentVersion": "1.0.0.0"
-                }
+                "supportsHttpsTrafficOnly": true,
+                "minimumTlsVersion": "TLS1_2"
             }
         }
     ]
