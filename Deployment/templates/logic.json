@@ -58,7 +58,7 @@
             "dependsOn": [
                 "[concat('Microsoft.Storage/storageAccounts/', parameters('name'))]",
                 "[variables('outboundSubnetDeployment')]",
-                "[resourceId('Microsoft.Web/serverfarms', parameters('ResourceGroup'), parameters('name')]"
+                "[resourceId('Microsoft.Web/serverfarms', parameters('ResourceGroup'), parameters('name'))]"
             ],
             "properties": {
                 "name": "[parameters('name')]",
