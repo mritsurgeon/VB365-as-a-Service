@@ -41,7 +41,7 @@
         "storageSubnetDeployment": "storageSubnetDeployment"
     },
     "resources": [
-                {
+        {
             "type": "Microsoft.Network/virtualNetworks",
             "apiVersion": "2017-06-01",
             "name": "[parameters('vnetName')]",
@@ -59,32 +59,13 @@
                             "addressPrefix": "10.0.0.0/24",
                             "delegations": [
                                 {
-                                    "name": "delegation",
+                                    "name": "logicappDelegation",
                                     "properties": {
-                                        "serviceName": "Microsoft.Web/serverfarms"
+                                        "serviceName": "Microsoft.Logic/workflows"
                                     }
                                 }
                             ]
                         }
-                    },
-                    {
-                        "type": "Microsoft.Network/virtualNetworks/subnets",
-                        "apiVersion": "2020-07-01",
-                        "name": "[concat(parameters('vnetName'), '/subnets/', parameters('subnetName'))]",
-                        "properties": {
-                            "delegations": [
-                                {
-                                    "name": "delegation",
-                                    "properties": {
-                                        "serviceName": "Microsoft.Web/serverfarms"
-                                    }
-                                }
-                            ],
-                            "addressPrefix": "10.0.1.0/24"
-                        },
-                        "dependsOn": [
-                            "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]"
-                        ]
                     }
                 ]
             }
