@@ -42,7 +42,8 @@
             "type": "string"
         },
         "storageAccountName": {
-            "type": "string"
+            "type": "string",
+            "defaultValue":"vb365SaaS2023"
         },
         "subscriptionId": {
             "type": "string"
@@ -91,7 +92,7 @@
                         },
                         {
                             "name": "WEBSITE_CONTENTSHARE",
-                            "value": "vb365SaaS"
+                            "value": "vb365SaaS2023"
                         },
                         {
                             "name": "AzureFunctionsJobHost__extensionBundle__id",
