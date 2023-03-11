@@ -65,7 +65,6 @@
             "dependsOn": [
                 "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]",
                 "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'), '/subnets/', parameters('subnetName'))]",
-                "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'), '/subnets/newSubnet')]"
             ],
             "properties": {
                 "state": "Enabled",
