@@ -40,6 +40,9 @@
         },
         "ResourceGroup": {
             "type": "string"
+        },
+        "serverFarmName": {
+            "type": "string"
         }
     },
     "variables": {
@@ -58,7 +61,7 @@
             "dependsOn": [
                 "[concat('Microsoft.Storage/storageAccounts/', parameters('name'))]",
                 "[variables('outboundSubnetDeployment')]",
-                "[resourceId('Microsoft.Web/serverfarms', parameters('ResourceGroup'), parameters('name'))]"
+                "[resourceId('Microsoft.Web/serverfarms', parameters('ResourceGroup'), parameters('serverFarmName'))]"
             ],
             "properties": {
                 "name": "[parameters('name')]",
