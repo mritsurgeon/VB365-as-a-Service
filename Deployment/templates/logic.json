@@ -29,7 +29,7 @@
         },
         "netFrameworkVersion": {
             "type": "string",
-            "defaultValue": "4.7.2"
+            "defaultValue": "v6.0"
         },
         "subnetName": {
             "type": "string",
