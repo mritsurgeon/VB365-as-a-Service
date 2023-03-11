@@ -17,7 +17,7 @@
         },
         "alwaysOn": {
             "type": "bool",
-            "defaultValue": true
+            "defaultValue": false
         },
         "use32BitWorkerProcess": {
             "type": "bool",
