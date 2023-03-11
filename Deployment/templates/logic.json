@@ -43,7 +43,7 @@
     "resources": [
         {
             "type": "Microsoft.Network/virtualNetworks/subnets",
-            "apiVersion": "2021-02-01",
+            "apiVersion": "2017-06-01",
             "name": "[concat(parameters('vnetName'), '/', parameters('subnetName'))]",
             "properties": {
                 "addressPrefix": "10.0.0.0/24",
@@ -56,9 +56,7 @@
                     }
                 ]
             }
-        }
-    ]
-}
+        },
         {
             "type": "Microsoft.Logic/workflows",
             "apiVersion": "2017-07-01",
