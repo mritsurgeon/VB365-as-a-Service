@@ -83,4 +83,4 @@
         },
         "parametersLink": {
           "uri": "[parameters('parametersURI')]",
-          "contentVersion": "1.0.0.0
+          "contentVersion": "1.0.0.0"
