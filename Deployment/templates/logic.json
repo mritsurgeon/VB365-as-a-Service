@@ -41,6 +41,9 @@
         "ResourceGroup": {
             "type": "string"
         },
+        "storageAccountName": {
+            "type": "string"
+        },
         "subscriptionId": {
             "type": "string"
         }
