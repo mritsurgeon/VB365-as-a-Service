@@ -41,9 +41,10 @@
         "ResourceGroup": {
             "type": "string"
         },
-        "serverFarmName": {
+        "subscriptionId": {
             "type": "string"
         }
+
     },
     "variables": {
         "inboundSubnetDeployment": "inboundSubnetDeployment",
@@ -61,7 +62,7 @@
             "dependsOn": [
                 "[concat('Microsoft.Storage/storageAccounts/', parameters('name'))]",
                 "[variables('outboundSubnetDeployment')]",
-                "[resourceId('Microsoft.Web/serverfarms', parameters('ResourceGroup'), parameters('serverFarmName'))]"
+                "[resourceId('Microsoft.Web/serverfarms', parameters('ResourceGroup'), parameters('name'))]"
             ],
             "properties": {
                 "name": "[parameters('name')]",
@@ -110,7 +111,7 @@
                     "vnetRouteAllEnabled": true,
                     "netFrameworkVersion": "[parameters('netFrameworkVersion')]"
                 },
-                "serverFarmId": "[concat('/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
+                "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('ResourceGroup), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
                 "clientAffinityEnabled": false,
                 "virtualNetworkSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnetName'))]",
                 "httpsOnly": true,
