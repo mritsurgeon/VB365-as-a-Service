@@ -42,6 +42,54 @@
     },
     "resources": [
         {
+            "type": "Microsoft.Network/virtualNetworks",
+            "apiVersion": "2021-02-01",
+            "name": "[parameters('vnetName')]",
+            "location": "[parameters('location')]",
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.0.0.0/16"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "[parameters('subnetName')]",
+                        "properties": {
+                            "addressPrefix": "10.0.0.0/24",
+                            "delegations": [
+                                {
+                                    "name": "delegation",
+                                    "properties": {
+                                        "serviceName": "Microsoft.Web/serverfarms"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "type": "Microsoft.Network/virtualNetworks/subnets",
+                        "apiVersion": "2020-07-01",
+                        "name": "[concat(parameters('vnetName'), '/logic')]",
+                        "properties": {
+                            "delegations": [
+                                {
+                                    "name": "delegation",
+                                    "properties": {
+                                        "serviceName": "Microsoft.Web/serverfarms"
+                                    }
+                                }
+                            ],
+                            "addressPrefix": "10.0.1.0/24"
+                        },
+                        "dependsOn": [
+                            "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
             "type": "Microsoft.Logic/workflows",
             "apiVersion": "2017-07-01",
             "name": "[parameters('name')]",
@@ -54,35 +102,6 @@
                 "state": "Enabled",
                 "definition": {
                     "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
-                    "contentVersion": "1.0.0.0",
-                    "definition": "[concat(variables('definitionUrl'), parameters('definitionURI'))]"
-                },
-                "parameters": {},
-                "sku": {
-                    "name": "Standard",
-                    "plan": {
-                        "id": "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]",
-                        "name": "[parameters('hostingPlanName')]"
-                    }
-                },
-                "integrationAccount": {
-                    "id": "[concat(resourceId('Microsoft.Logic/workflows', parameters('name')), '/integrationAccounts/', variables('integrationAccountName'))]"
-                },
-                "accessControl": {
-                    "enabled": "[parameters('networkInjectionEnabled')]"
-                },
-                "triggers": {
-                    "manual": {
-                        "inputs": {},
-                        "recurrence": {
-                            "frequency": "Minute",
-                            "interval": 15
-                        },
-                        "type": "Request"
-                    }
-                },
-                "parametersLink": {
-                    "uri": "[parameters('parametersURI')]",
                     "contentVersion": "1.0.0.0"
                 }
             }
