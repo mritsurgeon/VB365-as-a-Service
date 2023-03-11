@@ -10,7 +10,7 @@
         },
         "hostingPlanName": {
             "type": "string",
-            "defaultValue": "[concat(variables('name'),'-plan')]",
+            "defaultValue": "[concat(parameters('name'),'-plan')]",
         },
         "serverFarmResourceGroup": {
             "type": "string"
