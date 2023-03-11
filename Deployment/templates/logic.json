@@ -111,7 +111,7 @@
                     "vnetRouteAllEnabled": true,
                     "netFrameworkVersion": "[parameters('netFrameworkVersion')]"
                 },
-                "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('ResourceGroup), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
+                "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('ResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
                 "clientAffinityEnabled": false,
                 "virtualNetworkSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnetName'))]",
                 "httpsOnly": true,
@@ -125,7 +125,9 @@
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2020-07-01",
             "name": "[variables('outboundSubnetDeployment')]",
-            "properties": {
+            "resourceGroup": "[parameters('ResourceGroup')]",
+            "subscriptionId": "[parameters('subscriptionId')]",          
+              "properties": {
                 "mode": "Incremental",
                 "template": {
                     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
