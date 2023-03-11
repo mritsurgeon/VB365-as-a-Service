@@ -11,27 +11,6 @@
     "location": {
       "type": "string"
     },
-    "hostingPlanName": {
-      "type": "string"
-    },
-    "serverFarmResourceGroup": {
-      "type": "string"
-    },
-    "alwaysOn": {
-      "type": "bool"
-    },
-    "use32BitWorkerProcess": {
-      "type": "bool"
-    },
-    "ftpsState": {
-      "type": "string"
-    },
-    "storageAccountName": {
-      "type": "string"
-    },
-    "netFrameworkVersion": {
-      "type": "string"
-    },
     "networkInjectionEnabled": {
       "type": "bool",
       "defaultValue": false
