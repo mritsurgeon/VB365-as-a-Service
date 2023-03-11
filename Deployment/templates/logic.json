@@ -33,11 +33,20 @@
     }
   },
   "variables": {
-    "inboundSubnetDeployment": "inboundSubnetDeployment",
     "outboundSubnetDeployment": "outboundSubnetDeployment",
     "storageSubnetDeployment": "storageSubnetDeployment"
   },
   "resources": [
+    {
+      "type": "Microsoft.Network/virtualNetworks/subnets",
+      "apiVersion": "2021-02-01",
+      "name": "[concat(parameters('vnetName'), '/', parameters('newOutboundSubnetName'))]",
+      "location": "[parameters('location')]",
+      "dependsOn": [],
+      "properties": {
+        "addressPrefix": "[parameters('outboundSubnetPrefix')]"
+      }
+    },
     {
       "type": "Microsoft.Logic/workflows",
       "apiVersion": "2017-07-01",
@@ -57,7 +66,30 @@
             "id": "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]",
             "name": "[parameters('hostingPlanName')]"
           }
-        }
+        },
+        "accessControl": {
+          "triggers": {
+            "allowedHttpMethods": [
+              "POST"
+            ],
+            "defaultAuthorization": {
+              "action": "Allow"
+            }
+          },
+          "inputs": {
+            "host": {
+              "connection": {
+                "name": "@parameters('$connections')['shared_sharepointonline']['connectionId']"
+              }
+            }
+          }
+        },
+        "integrationAccount": {},
+        "parametersLink": {},
+        "triggers": {},
+        "x-ms-api-management": {},
+        "x-ms-workflow-etag": "",
+        "x-ms-workflow-version": ""
       }
     }
   ],
