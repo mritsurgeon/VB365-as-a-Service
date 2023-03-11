@@ -96,7 +96,7 @@
             "location": "[parameters('location')]",
             "dependsOn": [
                 "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]",
-                "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'), '/subnets/', variables('outboundSubnetDeployment'))]"
+                "[concat('Microsoft.Network/virtualNetworks/', parameters('vnetName'), '/subnets/logic')]"
             ],
             "properties": {
                 "state": "Enabled",
