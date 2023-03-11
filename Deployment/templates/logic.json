@@ -10,7 +10,7 @@
         },
         "hostingPlanName": {
             "type": "string",
-            "defaultValue": "WorkflowStandard"
+            "defaultValue": "ASP-RSAVBM365BaaS-b91c"
         },
         "serverFarmResourceGroup": {
             "type": "string"
