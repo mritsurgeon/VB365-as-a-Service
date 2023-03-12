@@ -7,7 +7,7 @@ subnet_name=$3
 logic_app_name=$4
 location=$5
 subscriptionId=$(az account show --query id | tr -d '"')
-app_plan="asp-vb365-saas"
+app_plan="asp-${logic_app_name}-plan" 
 
 # Get the subnet ID
 #subnet_id=$(az network vnet subnet show --resource-group $rg_name --vnet-name $vnet_name --name $subnet_name --query id --output tsv)
