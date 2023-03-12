@@ -1,3 +1,5 @@
+![image](https://user-images.githubusercontent.com/59644778/224530658-efe8141e-8a80-4a42-9062-50e1e4918c8f.png)
+
 # VB365-as-a-Service
 Azure Software as a Solution for Veeam Backup for Microsoft 365 as a Service
 
@@ -15,16 +17,17 @@ This solution is a starting point for service providers to build a similar SaaS 
 2. Clone the repository.
 3. Run `Install.sh` with the appropriate parameters.
 4. Take note of the final output of the installation, including the landing page, webhook, tenant ID, and AAD application ID.
-5. Login to the Microsoft Partner Center at the provided URL.
+5. Login to the Microsoft Partner Center at the provided URL: https://partner.microsoft.com/
 6. Create an offer in the marketplace using the details captured from the installation output, and configure the offer's technical details.
 7. Return to the Azure Logic App and configure its properties. Add the placeholder thumbprint from the VSPC console security settings (optional if SSL certificate used).
 8. Configure the logic app parameters and add the correct values.
-9. Login to the VSPC VM and add the vb365 server to the configuration.
+9. Login to the VSPC VM and add the vb365 server to the configuration.(Temporrary Workaround: Upgrade VSPC & VB365 to V7 , Currently not available in AZ marketplace ) 
 10. Login to the vb365 server and configure backup resources.
-11. Login to the Admin portal web app through the provided URL.
+11. Login to the Admin portal web app through the provided URL in steps 4.
 12. Configure additional fields in the following order: VCSP-Company, VCSP-Email, and VCSP-User. Alternatively, change the text parser expression (note: currently set to use `VCSP-` prefix in split).
-13. Change the notification settings in the admin portal to enable notifications on subscription.
+13. Change the notification settings in the admin portal to enable notifications on subscription activation.
 14. In the configuration, allow for auto-provisioning.
+15. Configure STMP settings in Admin portal , Configure notifications Too email for the Trigger Inbox. ( to be replaced with API payload & Http trigger V2 ) 
 
 ## Logic App Workflows
 
