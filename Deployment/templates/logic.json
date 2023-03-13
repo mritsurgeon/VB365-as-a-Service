@@ -120,7 +120,7 @@
                 "clientAffinityEnabled": false,
                 "virtualNetworkSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnetName'))]",
                 "httpsOnly": true,
-                "publicNetworkAccess": "Disabled"
+                "publicNetworkAccess": "Enabled"
             },
             "identity": {
                 "type": "SystemAssigned"
