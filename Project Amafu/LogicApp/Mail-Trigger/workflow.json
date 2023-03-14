@@ -633,7 +633,7 @@
         "inputs": {
           "body": {
             "Body": "<p>Dear SaaS Provider Team,<br>\n<br>\nI hope this email finds you well. I wanted to inform you that the SaaS offer for our customer, @{variables('Company')}, has been automatically provisioned and is now active. The offer includes a total of @{variables('users')} user accounts.<br>\n<br>\nWe appreciate your efficient handling of the provisioning process and your commitment to providing seamless service. We believe that this will be an excellent solution for @{variables('Company')} and will help them achieve their business goals.<br>\n<br>\nWe look forward to continuing our partnership with you and providing our customers with the best SaaS solutions available. If you have any questions or concerns, please do not hesitate to reach out to us.<br>\n<br>\nThank you for your continued support.<br>\n<br>\nBest regards,<br>\n<br>\nSaaS API robot&nbsp;</p>",
-            "From": "mritsurgeon@74q6ck.onmicrosoft.com",
+            "From": "email@email.com",
             "Importance": "Normal",
             "Subject": "Provisioned @{variables('Company')}",
             "To": "@triggerBody()?['from']"
@@ -667,7 +667,7 @@
             "queries": {
               "fetchOnlyWithAttachment": false,
               "folderPath": "Inbox",
-              "from": "mritsurgeon@gmail.com",
+              "from": "email@email.com",
               "importance": "Any",
               "includeAttachments": false
             }
