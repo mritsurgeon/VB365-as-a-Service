@@ -32,7 +32,7 @@
                     "description": "A service that allows content to be converted from one format to another.",
                     "iconUri": "[concat('https://connectoricons-prod.azureedge.net/u/laborbol/releases/ase-v3/1.0.1622.3202/', parameters('connections_conversionservice_name'), '/icon.png')]",
                     "brandColor": "#4f6bed",
-                    "id": "[concat('/subscriptions/2550c090-2cef-47e7-9edc-16b8d01a014d/providers/Microsoft.Web/locations/eastus/managedApis/', parameters('connections_conversionservice_name'))]",
+                    "id": "[concat('/subscriptions/$ID/providers/Microsoft.Web/locations/eastus/managedApis/', parameters('connections_conversionservice_name'))]",
                     "type": "Microsoft.Web/locations/managedApis"
                 },
                 "testLinks": []
