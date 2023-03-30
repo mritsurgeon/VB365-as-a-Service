@@ -5,6 +5,12 @@
         "connections_office365_name": {
             "defaultValue": "office365",
             "type": "String"
+        },
+        "location":{
+            "type": "string"
+        },
+        "subscriptionId":{
+            "type": "string"
         }
     },
     "variables": {},
@@ -16,30 +22,19 @@
             "location": "eastus",
             "kind": "V2",
             "properties": {
-                "displayName": "Email@contoso.com",
-                "statuses": [
-                    {
-                        "status": "Connected"
-                    }
-                ],
+                "displayName": "email@contoso.com"
                 "customParameterValues": {},
                 "nonSecretParameterValues": {},
-                "createdTime": "2023-02-08T18:49:13.1657304Z",
-                "changedTime": "2023-03-30T09:47:35.0745824Z",
                 "api": {
                     "name": "[parameters('connections_office365_name')]",
                     "displayName": "Office 365 Outlook",
                     "description": "Microsoft Office 365 is a cloud-based service that is designed to help meet your organization's needs for robust security, reliability, and user productivity.",
                     "iconUri": "[concat('https://connectoricons-prod.azureedge.net/releases/v1.0.1624/1.0.1624.3220/', parameters('connections_office365_name'), '/icon.png')]",
                     "brandColor": "#0078D4",
-                    "id": "[concat('/subscriptions/$ID/providers/Microsoft.Web/locations/eastus/managedApis/', parameters('connections_office365_name'))]",
+                    "id": "[concat('/subscriptions/', parameters('subscriptionId'),'/providers/Microsoft.Web/locations/', parameters('location'),'/managedApis/', parameters('connections_office365_name'))]",
                     "type": "Microsoft.Web/locations/managedApis"
                 },
-                "testLinks": [
-                    {
-                        "requestUri": "[concat('https://management.azure.com:443/subscriptions/$ID/resourceGroups/RSA-VBM365-BaaS/providers/Microsoft.Web/connections/', parameters('connections_office365_name'), '/extensions/proxy/testconnection?api-version=2016-06-01')]",
-                        "method": "get"
-                    }
+                  "testLinks": []
                 ]
             }
         }
