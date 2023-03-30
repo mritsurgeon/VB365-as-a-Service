@@ -1,0 +1,42 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "connections_conversionservice_name": {
+            "defaultValue": "conversionservice",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Web/connections",
+            "apiVersion": "2016-06-01",
+            "name": "[parameters('connections_conversionservice_name')]",
+            "location": "eastus",
+            "kind": "V2",
+            "properties": {
+                "displayName": "Content Conversion",
+                "statuses": [
+                    {
+                        "status": "Connected"
+                    }
+                ],
+                "customParameterValues": {},
+                "nonSecretParameterValues": {},
+                "createdTime": "2023-02-08T18:50:21.2040983Z",
+                "changedTime": "2023-02-08T18:50:22.7898686Z",
+                "api": {
+                    "name": "[parameters('connections_conversionservice_name')]",
+                    "displayName": "Content Conversion",
+                    "description": "A service that allows content to be converted from one format to another.",
+                    "iconUri": "[concat('https://connectoricons-prod.azureedge.net/u/laborbol/releases/ase-v3/1.0.1622.3202/', parameters('connections_conversionservice_name'), '/icon.png')]",
+                    "brandColor": "#4f6bed",
+                    "id": "[concat('/subscriptions/2550c090-2cef-47e7-9edc-16b8d01a014d/providers/Microsoft.Web/locations/eastus/managedApis/', parameters('connections_conversionservice_name'))]",
+                    "type": "Microsoft.Web/locations/managedApis"
+                },
+                "testLinks": []
+            }
+        }
+    ]
+}
