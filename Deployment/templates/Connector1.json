@@ -23,7 +23,6 @@
             "kind": "V2",
             "properties": {
                 "displayName": "Content Conversion",
-                ],
                 "customParameterValues": {},
                 "nonSecretParameterValues": {},
                 "api": {
@@ -32,7 +31,7 @@
                     "description": "A service that allows content to be converted from one format to another.",
                     "iconUri": "https://connectoricons-prod.azureedge.net/u/laborbol/releases/ase-v3/1.0.1622.3202/conversionservice/icon.png",
                     "brandColor": "#4f6bed",
-                    "id": "['/subscriptions/',parameters('subscriptionId'),'/providers/Microsoft.Web/locations/',parameters('location'),'/managedApis/conversionservice'],
+                    "id": "[concat('/subscriptions/', parameters('subscriptionId'), '/providers/Microsoft.Web/locations/', parameters('location'), '/managedApis/conversionservice')]",
                     "type": "Microsoft.Web/locations/managedApis"
                 },
                 "testLinks": []
