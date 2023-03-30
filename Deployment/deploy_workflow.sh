@@ -15,6 +15,9 @@ az appservice plan create --name $app_plan --resource-group $rg_name --location 
 
 # Deploy Logic app from ARM with required settings
 az deployment group create --resource-group $rg_name --template-uri https://raw.githubusercontent.com/mritsurgeon/VB365-as-a-Service/main/Deployment/templates/logic.json --parameters name=$logic_app_name location=$location serverFarmResourceGroup=$rg_name subnetName=api vnetName=$vnet_name ResourceGroup=$rg_name subscriptionId=$subscriptionId hostingPlanName=$app_plan storageAccountName=$storageAccountName
+az deployment group create --resource-group $rg_name --template-uri https://raw.githubusercontent.com/mritsurgeon/VB365-as-a-Service/main/Deployment/templates/Connector1.json --parameters subscriptionId=$subscriptionId location=$location 
+az deployment group create --resource-group $rg_name --template-uri https://raw.githubusercontent.com/mritsurgeon/VB365-as-a-Service/main/Deployment/templates/365.json --parameters subscriptionId=$subscriptionId location=$location
+
 
 # Change directory 
 cd "../Project Amafu/"
