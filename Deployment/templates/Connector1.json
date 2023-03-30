@@ -5,6 +5,12 @@
         "connections_conversionservice_name": {
             "defaultValue": "conversionservice",
             "type": "String"
+        },
+        "location":{
+            "type": "string"
+        },
+        "subscriptionId":{
+            "type": "string"
         }
     },
     "variables": {},
@@ -13,7 +19,7 @@
             "type": "Microsoft.Web/connections",
             "apiVersion": "2016-06-01",
             "name": "[parameters('connections_conversionservice_name')]",
-            "location": "$location",
+            "location": "[parameters('location')]",
             "kind": "V2",
             "properties": {
                 "displayName": "Content Conversion",
@@ -26,7 +32,7 @@
                     "description": "A service that allows content to be converted from one format to another.",
                     "iconUri": "https://connectoricons-prod.azureedge.net/u/laborbol/releases/ase-v3/1.0.1622.3202/conversionservice/icon.png",
                     "brandColor": "#4f6bed",
-                    "id": "/subscriptions/$subscriptionId/providers/Microsoft.Web/locations/$location/managedApis/conversionservice",
+                    "id": "['/subscriptions/',parameters('subscriptionId'),'/providers/Microsoft.Web/locations/',parameters('location'),'/managedApis/conversionservice'],
                     "type": "Microsoft.Web/locations/managedApis"
                 },
                 "testLinks": []
