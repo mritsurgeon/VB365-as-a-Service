@@ -110,7 +110,7 @@
           },
           "host": {
             "connection": {
-              "referenceName": "office365_1"
+              "referenceName": "office365"
             }
           },
           "method": "post",
@@ -475,7 +475,7 @@
           "body": "<p>@{triggerBody()?['body']}</p>",
           "host": {
             "connection": {
-              "referenceName": "conversionservice_3"
+              "referenceName": "conversionservice"
             }
           },
           "method": "post",
@@ -640,7 +640,7 @@
           },
           "host": {
             "connection": {
-              "referenceName": "office365_1"
+              "referenceName": "office365"
             }
           },
           "method": "post",
@@ -674,7 +674,7 @@
           },
           "host": {
             "connection": {
-              "referenceName": "office365_1"
+              "referenceName": "office365"
             }
           },
           "subscribe": {
