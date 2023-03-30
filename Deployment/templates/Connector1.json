@@ -17,22 +17,14 @@
             "kind": "V2",
             "properties": {
                 "displayName": "Content Conversion",
-                "statuses": [
-                    {
-                        "status": "Connected"
-                    }
-                ],
                 "customParameterValues": {},
                 "nonSecretParameterValues": {},
-                "createdTime": "2023-02-08T18:50:21.2040983Z",
-                "changedTime": "2023-02-08T18:50:22.7898686Z",
                 "api": {
                     "name": "[parameters('connections_conversionservice_name')]",
                     "displayName": "Content Conversion",
                     "description": "A service that allows content to be converted from one format to another.",
                     "iconUri": "[concat('https://connectoricons-prod.azureedge.net/u/laborbol/releases/ase-v3/1.0.1622.3202/', parameters('connections_conversionservice_name'), '/icon.png')]",
                     "brandColor": "#4f6bed",
-                    "id": "[concat('/subscriptions/$ID/providers/Microsoft.Web/locations/eastus/managedApis/', parameters('connections_conversionservice_name'))]",
                     "type": "Microsoft.Web/locations/managedApis"
                 },
                 "testLinks": []
