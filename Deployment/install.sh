@@ -52,7 +52,8 @@ image_365_sku="veeamoffice365backup"
   "$image_offer_VSPC" \
   "$image_VSPC_sku" \
   "$image_offer_VB365" \
-  "$image_365_sku"
+  "$image_365_sku" \
+  "$location"
 
 ./open_ports.sh "$resource_group" "$vspc_vm_name"
 
