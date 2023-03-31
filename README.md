@@ -113,6 +113,7 @@ Parses JSON data from the SQL Query and converts it into an array of objects.
 #### For Each
 
 Loops through each item in an array of rows and adds then to a Variable array.
+These are the values from custom landing page fields.
 
 - Actions:
     - Append to Array Variable: Appends a specified value to an array variable.
@@ -120,6 +121,8 @@ Loops through each item in an array of rows and adds then to a Variable array.
 - Input Parameters:
     - name: Name of the array variable to append to.
     - value: Value to append to the array variable.
+
+##### To access each array variable in later API calls you need to use expression body('Field data')[1] you will change interger as per order of fields on landing page.
 
 #### Initialize Variable
 
