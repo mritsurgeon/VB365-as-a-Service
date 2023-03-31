@@ -13,9 +13,10 @@ image_offer_VSPC=$9
 image_VSPC_sku=${10}
 image_offer_VB365=${11}
 image_365_sku=${12}
+location=${13}
 
 # Create the resource group if it does not exist
-az group create --name $rg_name --location eastus
+az group create --name $rg_name --location $location
 
 # Create the virtual network and subnet
 az network vnet create --name $vnet_name --resource-group $rg_name --address-prefixes 10.0.0.0/16
