@@ -88,6 +88,51 @@ Sends a welcome email to the specified email address with the specified password
 - New Email: Customer Welcome
 - New Email: VCSP Provisioned Notification
 
+## Workflow Definition Update v2: SQL Trigger - Azure Logic App
+
+This is a JSON object that defines a workflow in Azure Logic Apps. The workflow is triggered by a SQL Server database trigger that executes every 15 seconds, which retrieves newly added items from a table called "Subscriptions". The retrieved data is passed to the Logic App, where it is parsed as JSON data.
+
+### Workflow Actions
+
+#### Execute Query
+
+Retrieves data from a SQL Server database based on the specified query.
+
+- Input Parameters:
+    - query: SQL query string to retrieve data from the databasefor the custom input fileds on landing page , will use latest subscription ID to filter.
+    - serviceProviderConfiguration: Configuration for the SQL Server connection, including the connection name, operation ID, and provider ID.
+
+#### Parse JSON
+
+Parses JSON data from the SQL Query and converts it into an array of objects.
+
+- Input Parameters:
+    - content: Input JSON data to be parsed.
+    - schema: JSON schema to validate the input data.
+
+#### For Each
+
+Loops through each item in an array of rows and adds then to a Variable array.
+
+- Actions:
+    - Append to Array Variable: Appends a specified value to an array variable.
+
+- Input Parameters:
+    - name: Name of the array variable to append to.
+    - value: Value to append to the array variable.
+
+#### Initialize Variable
+
+Initializes a specified variable.
+
+- Input Parameters:
+    - variables: Array of variables to initialize.
+
+### Triggers
+
+- When an item is created (V2): Triggered by a SQL Server database trigger that executes every 15 seconds and retrieves newly added items from a table called "Subscriptions".
+
+
 #### The Workflow requires the following Parameters to be set in Azure Logic app:
 
 ```json
