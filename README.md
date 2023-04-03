@@ -1,4 +1,4 @@
-![image](https://user-images.githubusercontent.com/59644778/224530658-efe8141e-8a80-4a42-9062-50e1e4918c8f.png)
+![image](https://user-images.githubusercontent.com/59644778/229518414-779e5dce-62e8-4070-953d-63e467955e97.png)
 
 # VB365-as-a-Service
 Azure Software as a Solution for Veeam Backup for Microsoft 365 as a Service
