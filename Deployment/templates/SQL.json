@@ -23,8 +23,6 @@
             "kind": "V2",
             "properties": {
                 "displayName": "Subsription",
-
-                ],
                 "customParameterValues": {},
                 "api": {
                     "name": "[parameters('connections_sql_name')]",
@@ -36,7 +34,6 @@
                     "type": "Microsoft.Web/locations/managedApis"
                 },
                 "testLinks": []
-                ]
             }
         }
     ]
