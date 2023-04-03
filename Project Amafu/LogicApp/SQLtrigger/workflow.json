@@ -678,7 +678,7 @@
                 "inputs": {
                     "host": {
                         "connection": {
-                            "referenceName": "sql_1"
+                            "referenceName": "sql"
                         }
                     },
                     "method": "get",
