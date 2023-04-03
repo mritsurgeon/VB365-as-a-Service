@@ -30,11 +30,12 @@ This solution is a starting point for service providers to build a similar SaaS 
 15. Configure STMP settings in Admin portal , Configure notifications Too email for the Trigger Inbox. ( to be replaced with API payload & Http trigger V2 ) 
 
 ###Update 
-16. Additional trigger added , rather than mail trigger DB trigger 
-17. Use SQLtrigger workflow.json for logic app 
-18. Configure DB connection string found in Key vault ( Default key ) 
-19. Configure API body to match the correcet variable from array with expresion body('Field data')[0]
-20. Each Interger is the the custom filed data is captured on landing page IE. First Field [1]
+
+16. Additional trigger added , rather than mail trigger DB trigger.
+17. Use SQLtrigger workflow.json for logic app.
+18. Configure DB connection string found in Key vault ( Default key ). 
+19. Configure API body to match the correcet variable from array with expresion body('Field data')[0].
+20. Each Interger is the the custom filed data is captured on landing page IE. First Field [1].
 
 
 ## Logic App Workflows
