@@ -19,7 +19,7 @@
             "type": "Microsoft.Web/connections",
             "apiVersion": "2016-06-01",
             "name": "[parameters('connections_sql_name')]",
-            "location": "eastus",
+            "location": "[parameters('location')]",
             "kind": "V2",
             "properties": {
                 "displayName": "Subsription",
