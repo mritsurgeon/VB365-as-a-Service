@@ -58,6 +58,16 @@ image_offer_VB365="office365backup"
 image_VSPC_sku="veeamserviceproviderconsole"
 image_365_sku="veeamoffice365backup"
 
+echo "Checking if .Net Entity Framework is already installed"
+
+if which dotnet-ef &> /dev/null
+then
+    echo "dotnet-ef is already installed"
+else
+    echo "Installing dotnet-ef..."
+    dotnet tool install --global dotnet-ef
+fi
+
 # Deploy the VMs and open the ports
 ./deploy_vms.sh "$resource_group" \
   "$vb365_vm_name" \
