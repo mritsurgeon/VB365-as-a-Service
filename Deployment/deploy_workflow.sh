@@ -5,11 +5,11 @@
 rg_name=$1
 vnet_name=$2
 subnet_name=$3
-logic_app_name=${4}$(openssl rand -hex 5)
+logic_app_name=${4}$(openssl rand -hex 3)
 location=$5
 subscriptionId=$(az account show --query id | tr -d '"')
 app_plan="asp-${logic_app_name}-plan" 
-storageAccountName="web${logic_app_name}storage"
+storageAccountName="web${logic_app_name}"
 
 echo ""
 echo ""
