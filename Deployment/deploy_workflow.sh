@@ -11,6 +11,17 @@ subscriptionId=$(az account show --query id | tr -d '"')
 app_plan="asp-${logic_app_name}-plan" 
 storageAccountName="web${logic_app_name}storage"
 
+echo ""
+echo ""
+echo -e "\e[1m\e[32m ███╗   ███╗███████╗███╗   ██╗██╗   ██╗\e[0m"
+echo -e "\e[1m\e[32m ████╗ ████║██╔════╝████╗  ██║██║   ██║\e[0m"
+echo -e "\e[1m\e[32m ██╔████╔██║█████╗  ██╔██╗ ██║██║   ██║\e[0m"
+echo -e "\e[1m\e[32m ██║╚██╔╝██║██╔══╝  ██║╚██╗██║██║   ██║\e[0m"
+echo -e "\e[1m\e[32m ██║ ╚═╝ ██║███████╗██║ ╚████║╚██████╔╝\e[0m"
+echo -e "\e[1m\e[32m ╚═╝     ╚═╝╚══════╝╚═╝  ╚═══╝ ╚═════╝ \e[0m"
+echo ""
+echo ""
+
 # Prompt the user to select a trigger
 echo "Please select a trigger: "
 echo "1. Mail Trigger"
