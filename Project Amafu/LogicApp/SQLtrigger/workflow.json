@@ -30,7 +30,7 @@
                         "cloudTenantType": "General",
                         "ownerCredentials": {
                             "password": "@{outputs('JS_Pass_Gen')}",
-                            "userName": "@{body('Field data')[1]}"
+                            "userName": "@{variables('Field data')[1]}"
                         },
                         "siteUid": "@{outputs('Get_Site_UID')}"
                     },
@@ -55,15 +55,14 @@
                     "body": {
                         "IsAlarmDetectEnabled": false,
                         "organizationInput": {
-                            "alias": "@{body('Field data')[1]}",
-                            "city": "@{body('Field data')[4]}",
+                            "alias": "@{triggerBody()?['AMPSubscriptionId']}",
+                            "city": "@{variables('Field data')[1]}",
                             "country": 1,
-                            "email": "@{body('Field data')[2]}",
-                            "name": "@{body('Field data')[1]}",
-                            "notes": null,
-                            "phone": "@{body('Field data')[3]}",
-                            "website": "www.@{body('Field data')[1]}.com",
-                            "zipCode": null
+                            "email": "@{variables('Field data')[1]}",
+                            "name": "@{variables('Field data')[1]}",
+                            "notes": "Azure Provisioned",
+                            "phone": "@{variables('Field data')[8]}",
+                            "website": "@{variables('Field data')[6]}"
                         },
                         "permissions": [
                             "REST"
@@ -89,11 +88,11 @@
             "Customer_Welcome": {
                 "inputs": {
                     "body": {
-                        "Body": "<p>Dear @{body('Field data')[1]},<br>\n<br>\nWelcome to our new SaaS Service! We're excited to have you on board and look forward to helping you keep your Office 365 data safe and secure.<br>\n<br>\nTo get started, please use the following login information to access your account:<br>\n<br>\nLogin URL: @{parameters('VSPCURL')}<br>\nUsername: @{body('Field data')[1]}\\@{body('Field data')[1]}<br>\nPassword: @{outputs('JS_Pass_Gen')}<br>\nOnce you've logged in, follow these steps to configure backup for your Office 365:<br>\n<br>\nClick on the \"Configuration\" tab<br>\nClick on the \"Office 365 Plugin\" option<br>\nSelect your organization<br>\nAdd your organization and follow the on-screen prompts<br>\nGo back to the main dashboard and select \"Backup Jobs\"<br>\nAdd a backup job<br>\nSelect the organization that you added in step 4<br>\nConfigure the backup job to your liking<br>\nIf you have any questions or concerns, please don't hesitate to contact our support team. They're available 24/7 to help you with any issues you may encounter.<br>\n<br>\nThank you for choosing our new SaaS Service. We're thrilled to have you as a customer and look forward to helping you protect your Office 365 data.<br>\n<br>\nBest regards,<br>\nRobot Ian<br>\nThe SaaS Service Team</p>",
+                        "Body": "<p>Dear @{variables('Field data')[1]},<br>\n<br>\nWelcome to our new SaaS Service! We're excited to have you on board and look forward to helping you keep your Office 365 data safe and secure.<br>\n<br>\nTo get started, please use the following login information to access your account:<br>\n<br>\nLogin URL: @{parameters('VSPCURL')}<br>\nUsername: @{variables('Field data')[1]}\\@{variables('Field data')[1]}<br>\nPassword: @{outputs('JS_Pass_Gen')}<br>\nOnce you've logged in, follow these steps to configure backup for your Office 365:<br>\n<br>\nClick on the \"Configuration\" tab<br>\nClick on the \"Office 365 Plugin\" option<br>\nSelect your organization<br>\nAdd your organization and follow the on-screen prompts<br>\nGo back to the main dashboard and select \"Backup Jobs\"<br>\nAdd a backup job<br>\nSelect the organization that you added in step 4<br>\nConfigure the backup job to your liking<br>\nIf you have any questions or concerns, please don't hesitate to contact our support team. They're available 24/7 to help you with any issues you may encounter.<br>\n<br>\nThank you for choosing our new SaaS Service. We're thrilled to have you as a customer and look forward to helping you protect your Office 365 data.<br>\n<br>\nBest regards,<br>\nRobot Ian<br>\nThe SaaS Service Team</p>",
                         "From": "email@email.com",
                         "Importance": "Normal",
                         "Subject": "Welcome To VB365 Veeam SaaS Service ",
-                        "To": "@{body('Field data')[2]}"
+                        "To": "@{variables('Field data')[2]}"
                     },
                     "host": {
                         "connection": {
@@ -124,6 +123,22 @@
                 "runAfter": {},
                 "type": "ServiceProvider"
             },
+            "Field_data": {
+                "inputs": {
+                    "variables": [
+                        {
+                            "name": "Field data",
+                            "type": "array"
+                        }
+                    ]
+                },
+                "runAfter": {
+                    "Parse_JSON": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "InitializeVariable"
+            },
             "For_each_2": {
                 "actions": {
                     "For_each": {
@@ -144,7 +159,7 @@
                 },
                 "foreach": "@body('Parse_JSON')",
                 "runAfter": {
-                    "Initialize_variable": [
+                    "Field_data": [
                         "Succeeded"
                     ]
                 },
@@ -426,22 +441,6 @@
                 },
                 "type": "Http"
             },
-            "Initialize_variable": {
-                "inputs": {
-                    "variables": [
-                        {
-                            "name": "Field data",
-                            "type": "array"
-                        }
-                    ]
-                },
-                "runAfter": {
-                    "Parse_JSON": [
-                        "Succeeded"
-                    ]
-                },
-                "type": "InitializeVariable"
-            },
             "JS_Pass_Gen": {
                 "inputs": {
                     "code": "function generatePassword() {\r\n  const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';\r\n  let password = '';\r\n  for (let i = 0; i < 5; i++) {\r\n    password += characters.charAt(Math.floor(Math.random() * characters.length));\r\n  }\r\n  return password;\r\n}\r\n\r\nreturn generatePassword();"
@@ -649,10 +648,10 @@
             "VCSP_Provisioned_Notification_": {
                 "inputs": {
                     "body": {
-                        "Body": "<p>Dear SaaS Provider Team,<br>\n<br>\nI hope this email finds you well. I wanted to inform you that the SaaS offer for our customer, @{variables('Company')}, has been automatically provisioned and is now active. The offer includes a total of @{variables('users')} user accounts.<br>\n<br>\nWe appreciate your efficient handling of the provisioning process and your commitment to providing seamless service. We believe that this will be an excellent solution for @{variables('Company')} and will help them achieve their business goals.<br>\n<br>\nWe look forward to continuing our partnership with you and providing our customers with the best SaaS solutions available. If you have any questions or concerns, please do not hesitate to reach out to us.<br>\n<br>\nThank you for your continued support.<br>\n<br>\nBest regards,<br>\n<br>\nSaaS API robot&nbsp;</p>",
+                        "Body": "<p>Dear SaaS Provider Team,<br>\n<br>\nI hope this email finds you well. I wanted to inform you that the SaaS offer for our customer, @{variables('Field data')[1]}, has been automatically provisioned and is now active. The offer includes a total of @{triggerBody()?['AMPQuantity']} user accounts.<br>\n<br>\nWe appreciate your efficient handling of the provisioning process and your commitment to providing seamless service. We believe that this will be an excellent solution for @{variables('Field data')[1]} and will help them achieve their business goals.<br>\n<br>\nWe look forward to continuing our partnership with you and providing our customers with the best SaaS solutions available. If you have any questions or concerns, please do not hesitate to reach out to us.<br>\n<br>\nThank you for your continued support.<br>\n<br>\nBest regards,<br>\n<br>\nSaaS API robot&nbsp;</p>",
                         "From": "email@email.com",
                         "Importance": "Normal",
-                        "Subject": "Provisioned @{variables('Company')}",
+                        "Subject": "Provisioned @{variables('Field data')[1]}",
                         "To": "email@email.com"
                     },
                     "host": {
@@ -678,7 +677,7 @@
                 "inputs": {
                     "host": {
                         "connection": {
-                            "referenceName": "sql"
+                            "referenceName": "sql_1"
                         }
                     },
                     "method": "get",
