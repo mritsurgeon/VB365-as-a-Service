@@ -115,7 +115,7 @@
                         "query": "SELECT *\nFROM SubscriptionAttributeValues\nWHERE SubscriptionId = '@{triggerBody()?['AMPSubscriptionId']}'"
                     },
                     "serviceProviderConfiguration": {
-                        "connectionName": "sql",
+                        "connectionName": "sql_q",
                         "operationId": "executeQuery",
                         "serviceProviderId": "/serviceProviders/sql"
                     }
@@ -677,7 +677,7 @@
                 "inputs": {
                     "host": {
                         "connection": {
-                            "referenceName": "sql_1"
+                            "referenceName": "sql_t"
                         }
                     },
                     "method": "get",
