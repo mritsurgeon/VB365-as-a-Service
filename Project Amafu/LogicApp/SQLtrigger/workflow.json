@@ -96,6 +96,7 @@
                     },
                     "host": {
                         "connection": {
+                            "connectionName": "office365",
                             "referenceName": "office365"
                         }
                     },
