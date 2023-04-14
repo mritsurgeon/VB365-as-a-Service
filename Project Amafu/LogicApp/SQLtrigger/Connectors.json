@@ -1,0 +1,51 @@
+{
+    "managedApiConnections": {
+        "conversionservice": {
+            "api": {
+                "id": "/subscriptions/<Subscription ID>/providers/Microsoft.Web/locations/<Location>/managedApis/conversionservice"
+            },
+            "authentication": {
+                "type": "ManagedServiceIdentity"
+            },
+            "connection": {
+                "id": "/subscriptions/<Subscription ID>/resourceGroups/<Resorce Group>/providers/Microsoft.Web/connections/conversionservice"
+            },
+            "connectionRuntimeUrl": "<URL>"
+        },
+        "office365": {
+            "api": {
+                "id": "/subscriptions/<Subscription ID>/providers/Microsoft.Web/locations/<Location>/managedApis/office365"
+            },
+            "authentication": {
+                "type": "ManagedServiceIdentity"
+            },
+            "connection": {
+                "id": "/subscriptions/<Subscription ID>/resourceGroups/<Resorce Group>/providers/Microsoft.Web/connections/office365"
+            },
+            "connectionRuntimeUrl": "<URL>"
+        },
+        "sql_t": {
+            "api": {
+                "id": "/subscriptions/<Subscription ID>/providers/Microsoft.Web/locations/<Location>/managedApis/sql"
+            },
+            "authentication": {
+                "type": "ManagedServiceIdentity"
+            },
+            "connection": {
+                "id": "/subscriptions/<Subscription ID>/resourceGroups/<Resorce Group>providers/Microsoft.Web/connections/sql"
+            },
+            "connectionRuntimeUrl": "<URL>"
+        }
+    },
+    "serviceProviderConnections": {
+        "sql_q": {
+            "displayName": "sql_q",
+            "parameterValues": {
+                "connectionString": "@appsetting('sql_connectionString')"
+            },
+            "serviceProvider": {
+                "id": "/serviceProviders/sql"
+            }
+        }
+    }
+}
