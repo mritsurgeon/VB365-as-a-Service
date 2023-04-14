@@ -19,7 +19,8 @@ This solution is a starting point for service providers to build a similar SaaS 
 4. Take note of the final output of the installation, including the landing page, webhook, tenant ID, and AAD application ID.
 5. Login to the Microsoft Partner Center at the provided URL: https://partner.microsoft.com/
 6. Create an offer in the marketplace using the details captured from the installation output, and configure the offer's technical details.
-7. Return to the Azure Logic App and configure its properties. Add the placeholder thumbprint from the VSPC console security settings (optional if SSL certificate used).
+7. Return to the Azure Logic App and configure its properties. Add the placeholder thumbprint from the VSPC console security settings (optional if SSL certificate used)
+TLS/SSL certificate: Add the app setting, WEBSITE_LOAD_ROOT_CERTIFICATES, and set the value to the thumbprint for your TLS/SSL certificate.
 8. Configure the logic app parameters and add the correct values.
 9. Login to the VSPC VM and add the vb365 server to the configuration.(Temporrary Workaround: Upgrade VSPC & VB365 to V7 , Currently not available in AZ marketplace ) 
 10. Login to the vb365 server and configure backup resources.
