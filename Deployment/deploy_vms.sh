@@ -31,8 +31,7 @@ az vm create \
     --admin-password $vm_password \
     --size Standard_DS1_v2 \
     --vnet-name $vnet_name \
-    --subnet $subnet_name \
-    --public-ip-address ""
+    --subnet $subnet_name 
 
 # Wait until the VM is fully provisioned
 az vm wait --name $VSPC_vm_name --resource-group $rg_name --created
