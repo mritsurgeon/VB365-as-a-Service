@@ -51,7 +51,7 @@ echo "Press enter to continue"
 read
 echo "You pressed enter"
 # Static parameters
-saas_repo="https://github.com/Azure/Commercial-Marketplace-SaaS-Accelerator.git"
+saas_repo="https://github.com/Azure/Commercial-Marketplace-SaaS-Accelerator.git -b 7.0.0 --depth 1"
 image_publisher="veeam"
 image_offer_VSPC="veeam_service_provider_console"
 image_offer_VB365="office365backup"
