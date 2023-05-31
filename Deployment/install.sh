@@ -54,8 +54,9 @@ echo " Lets first run azure login , Press enter to begin"
 read
 echo -e "\e[1;32;5m\033[7mYou pressed enter, Remember to use a web browser to open the page https://microsoft.com/devicelogin & enter device code to authenticate\e[0m\e[1;32;5m"
 az login
+
 # Static parameters
-saas_repo="https://github.com/Azure/Commercial-Marketplace-SaaS-Accelerator.git -b 7.0.0 --depth 1"
+saas_repo="https://github.com/Azure/Commercial-Marketplace-SaaS-Accelerator.git"
 image_publisher="veeam"
 image_offer_VSPC="veeam_service_provider_console"
 image_offer_VB365="office365backup"
@@ -70,6 +71,18 @@ then
 else
     echo "Installing dotnet-ef..."
     dotnet tool install --global dotnet-ef
+fi
+
+echo "Checking if NET Core 6.x is already installed Latest Azure CLI image replaced .NET 6 with 7"
+
+if dotnet --list-sdks | grep -q "6\."; then
+    echo ".NET Core 6.x is already installed"
+else
+    echo ".NET Core 6.x is not installed. Installing .NET Core 6.x..."
+    wget https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh
+    chmod +x dotnet-install.sh
+    ./dotnet-install.sh -v 6.0.0 -runtime dotnet --architecture x64
+    export PATH="$HOME/.dotnet:$PATH"
 fi
 
 # Deploy the VMs and open the ports
