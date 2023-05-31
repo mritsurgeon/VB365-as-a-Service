@@ -50,6 +50,10 @@ echo ""
 echo "Press enter to continue"
 read
 echo "You pressed enter"
+echo " Lets first run azure login , Press enter to begin"
+read
+echo -e "\e[1;32;5m\033[7mYou pressed enter, Remember to use a web browser to open the page https://microsoft.com/devicelogin & enter device code to authenticate\e[0m\e[1;32;5m"
+az login
 # Static parameters
 saas_repo="https://github.com/Azure/Commercial-Marketplace-SaaS-Accelerator.git -b 7.0.0 --depth 1"
 image_publisher="veeam"
