@@ -79,10 +79,10 @@ if dotnet --list-sdks | grep -q "6\."; then
     echo ".NET Core 6.x is already installed"
 else
     echo ".NET Core 6.x is not installed. Installing .NET Core 6.x..."
-    wget https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh
-    chmod +x dotnet-install.sh
-    ./dotnet-install.sh -v 6.0.0 -runtime dotnet --architecture x64
-    export PATH="$HOME/.dotnet:$PATH"
+    wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
+    chmod +x ./dotnet-install.sh
+    ./dotnet-install.sh --version latest
+    export PATH=$PATH:$HOME/dotnet
 fi
 
 # Deploy the VMs and open the ports
