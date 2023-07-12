@@ -16,7 +16,7 @@ location=$6
 #install dotnet 6 & EF
 wget https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh
 chmod +x dotnet-install.sh
-./dotnet-install.sh -v 6.0.0 -runtime dotnet --architecture x64
+./dotnet-install.sh
 export PATH="$HOME/.dotnet:$PATH"
 echo 'export PATH="$HOME/.dotnet:$PATH"' >> ~/.bashrc
 dotnet tool install --global dotnet-ef
