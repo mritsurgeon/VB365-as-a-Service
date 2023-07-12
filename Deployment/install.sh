@@ -63,28 +63,6 @@ image_offer_VB365="office365backup"
 image_VSPC_sku="veeamserviceproviderconsole"
 image_365_sku="veeamoffice365backup"
 
-echo "Checking if .Net Entity Framework is already installed"
-
-if which dotnet-ef &> /dev/null
-then
-    echo "dotnet-ef is already installed"
-else
-    echo "Installing dotnet-ef..."
-    dotnet tool install --global dotnet-ef
-fi
-
-echo "Checking if NET Core 6.x is already installed Latest Azure CLI image replaced .NET 6 with 7"
-
-if dotnet --list-sdks | grep -q "6\."; then
-    echo ".NET Core 6.x is already installed"
-else
-    echo ".NET Core 6.x is not installed. Installing .NET Core 6.x..."
-    wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
-    chmod +x ./dotnet-install.sh
-    ./dotnet-install.sh --version latest
-    export PATH=$PATH:$HOME/dotnet
-fi
-
 # Deploy the VMs and open the ports
 ./deploy_vms.sh "$resource_group" \
   "$vb365_vm_name" \
