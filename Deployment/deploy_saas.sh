@@ -13,6 +13,11 @@ SQLServerName=$4
 PublisherAdminUsers=$5
 location=$6
 
+wget https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh; `
+chmod +x dotnet-install.sh; `
+./dotnet-install.sh; `
+$ENV:PATH="$HOME/.dotnet:$ENV:PATH"; `
+dotnet tool install --global dotnet-ef; `
 
 # Call the Deploy.ps1 script
 cd ./Commercial-Marketplace-SaaS-Accelerator/deployment
