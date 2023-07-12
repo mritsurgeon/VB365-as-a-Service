@@ -23,6 +23,7 @@ az network vnet create --name $vnet_name --resource-group $rg_name --address-pre
 az network vnet subnet create --name $subnet_name --resource-group $rg_name --vnet-name $vnet_name --address-prefixes 10.0.0.0/24
 
 # Deploy the first VM
+az vm image terms accept --urn $image_publisher:$image_offer_VSPC:$image_VSPC_sku:latest
 az vm create \
     --name $VSPC_vm_name \
     --resource-group $rg_name \
@@ -46,6 +47,7 @@ echo 'Username: '$vm_username
 echo 'Password: '$vm_password
 
 # Deploy the second VM
+az vm image terms accept --urn $image_publisher:$image_offer_VB365:$image_365_sku:latest
 az vm create \
     --name $vb365_vm_name \
     --resource-group $rg_name \
