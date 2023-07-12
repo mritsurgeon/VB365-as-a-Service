@@ -18,18 +18,15 @@ wget https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh
 chmod +x dotnet-install.sh
 ./dotnet-install.sh -v 6.0.0 -runtime dotnet --architecture x64
 export PATH="$HOME/.dotnet:$PATH"
+echo 'export PATH="$HOME/.dotnet:$PATH"' >> ~/.bashrc
 dotnet tool install --global dotnet-ef
+
+# Export the PATH variable to the shell profile or configuration file
 
 # Call the Deploy.ps1 script
 cd ./Commercial-Marketplace-SaaS-Accelerator/deployment
 
-# Export the PATH variable for use in the subsequent PowerShell script
-export POWERSHELL_ENV_PATH="$PATH"
-
-# Execute the PowerShell script
-pwsh -Command "& { \$env:PATH = \$env:POWERSHELL_ENV_PATH; ./Deploy.ps1 -WebAppNamePrefix '$WebAppNamePrefix' -SQLServerName '$SQLServerName' -PublisherAdminUsers '$PublisherAdminUsers' -ResourceGroupForDeployment '$ResourceGroupForDeployment' -location '$location' }"
-
-#pwsh ./Deploy.ps1 -WebAppNamePrefix $WebAppNamePrefix -SQLServerName $SQLServerName -PublisherAdminUsers $PublisherAdminUsers -ResourceGroupForDeployment $ResourceGroupForDeployment $location
+pwsh ./Deploy.ps1 -WebAppNamePrefix $WebAppNamePrefix -SQLServerName $SQLServerName -PublisherAdminUsers $PublisherAdminUsers -ResourceGroupForDeployment $ResourceGroupForDeployment $location
 
 # Print a message for the user
 echo "SaaS accelerator deployed successfully!!"
