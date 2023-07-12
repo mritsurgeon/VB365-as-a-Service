@@ -1,0 +1,1030 @@
+{
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "AMPID": {
+                "inputs": "@body('Parse_JSON_1')?['value'][0]['AMPSubscriptionId']",
+                "runAfter": {
+                    "Parse_JSON_1": [
+                        "SUCCEEDED"
+                    ]
+                },
+                "type": "Compose"
+            },
+            "AMPQuantity": {
+                "inputs": "@body('Subscription_details')?['ResultSets']?['Table1'][0]?['AMPQuantity']",
+                "runAfter": {
+                    "Subscription_details": [
+                        "SUCCEEDED"
+                    ]
+                },
+                "type": "Compose"
+            },
+            "Assign_VBM_Resource": {
+                "description": "Need To get VBR UID ( static to Region ) Logic app per region ",
+                "inputs": {
+                    "body": {
+                        "friendlyName": "@{parameters('VB365Server')}",
+                        "vb365ServerUid": "@{outputs('VBM_Install_ID')}"
+                    },
+                    "headers": {
+                        "Authorization": "bearer @{body('Get_Token')?['access_token']}",
+                        "Content-Type": "application/json",
+                        "X-Client-Version": "string"
+                    },
+                    "method": "POST",
+                    "uri": "https://@{parameters('servername')}:1280/api/v3/organizations/companies/@{body('Get_Company_ID')?['data']?['instanceUid']}/vb365Resources"
+                },
+                "runAfter": {
+                    "VBM_Install_ID": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Http"
+            },
+            "Assign_VCC_Site": {
+                "inputs": {
+                    "body": {
+                        "cloudTenantType": "General",
+                        "ownerCredentials": {
+                            "password": "@{outputs('JS_Pass_Gen')}",
+                            "userName": "@{variables('Field data')[0]}"
+                        },
+                        "siteUid": "@{outputs('Get_Site_UID')}"
+                    },
+                    "headers": {
+                        "Authorization": "bearer @{body('Get_Token')?['access_token']}",
+                        "Content-Type": "application/json",
+                        "X-Client-Version": "string"
+                    },
+                    "method": "POST",
+                    "uri": "https://@{parameters('servername')}:1280/api/v3/organizations/companies/@{body('Get_Company_ID')?['data']?['instanceUid']}/sites"
+                },
+                "operationOptions": "DisableAsyncPattern",
+                "runAfter": {
+                    "Get_Site_UID": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Http"
+            },
+            "CountryJson": {
+                "inputs": {
+                    "content": "@parameters('countries')",
+                    "schema": {
+                        "properties": {
+                            "data": {
+                                "items": {
+                                    "properties": {
+                                        "code": {
+                                            "type": "string"
+                                        },
+                                        "id": {
+                                            "type": "integer"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "id",
+                                        "name",
+                                        "code"
+                                    ],
+                                    "type": "object"
+                                },
+                                "type": "array"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "runAfter": {
+                    "For_each_2": [
+                        "SUCCEEDED"
+                    ]
+                },
+                "type": "ParseJson"
+            },
+            "Create_Company": {
+                "inputs": {
+                    "body": {
+                        "IsAlarmDetectEnabled": false,
+                        "companyServices": {
+                            "isBackupAgentManagementEnabled": false,
+                            "isBackupServerManagementEnabled": false,
+                            "isFileLevelRestoreEnabled": false,
+                            "isVBPublicCloudManagementEnabled": false
+                        },
+                        "organizationInput": {
+                            "TaxId": "@{outputs('AMPID')}",
+                            "city": "@{variables('Field data')[3]}",
+                            "country": "@{variables('countries')}",
+                            "email": "@{variables('Field data')[1]}",
+                            "name": "@{variables('Field data')[0]}",
+                            "notes": "Azure Provisioned",
+                            "phone": "@{variables('Field data')[2]}",
+                            "website": "@{variables('Field data')[5]}"
+                        },
+                        "permissions": [
+                            "REST"
+                        ],
+                        "resellerUid": null,
+                        "subscriptionPlanUid": null
+                    },
+                    "headers": {
+                        "Authorization": "bearer @{body('Get_Token')?['access_token']}",
+                        "Content-Type": "application/json",
+                        "X-Client-Version": "string"
+                    },
+                    "method": "POST",
+                    "uri": "https://@{parameters('servername')}:1280/api/v3/organizations/companies"
+                },
+                "runAfter": {
+                    "Get_Token": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Http"
+            },
+            "Customer_Welcome": {
+                "inputs": {
+                    "body": {
+                        "Body": "<p>Dear @{variables('Field data')[4]}, </p><p><br></p><p>Welcome to our new SaaS Service! </p><p>We're excited to have you on board and look forward to helping you keep your Office 365 data safe and secure. </p><p>To get started, please use the following login information to access your account: </p><p><br></p><p>Login URL: @{parameters('VSPCURL')} Username: @{variables('Field data')[0]}\\@{variables('Field data')[0]} Password: @{outputs('JS_Pass_Gen')} </p><p><br></p><p>Once you've logged in, follow these steps to configure backup for your Office 365:</p><p><br></p><p>1) Click on the \"Configuration\" tab </p><p>2) Click on the \"Office 365 Plugin\" option</p><p>3) Select New organization </p><p>4) Add your organization and follow the on-screen prompts </p><p>6) Go back to the main dashboard and select \"Backup Jobs\" </p><p>7) Add a backup job </p><p>8) Select the organization that you added in step 4 </p><p>9) Configure the backup job to your liking </p><p><br></p><p>If you have any questions or concerns, please don't hesitate to contact our support team. They're available 24/7 to help you with any issues you may encounter. </p><p><br></p><p>Thank you for choosing our new SaaS Service. We're thrilled to have you as a customer and look forward to helping you protect your Office 365 data. </p><p><br></p><p>Best regards, </p><p>Robot The SaaS Service Team</p><p><br></p>",
+                        "From": "info@email.co.za",
+                        "Importance": "Normal",
+                        "Subject": "Welcome To VB365 Veeam SaaS Service ",
+                        "To": "@{variables('Field data')[1]}"
+                    },
+                    "host": {
+                        "connection": {
+                            "referenceName": "office365"
+                        }
+                    },
+                    "method": "post",
+                    "path": "/v2/Mail"
+                },
+                "runAfter": {
+                    "Send_Welcome_Email": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ApiConnection"
+            },
+            "Field_data": {
+                "inputs": {
+                    "variables": [
+                        {
+                            "name": "Field data",
+                            "type": "array"
+                        }
+                    ]
+                },
+                "runAfter": {
+                    "Parse_JSON": [
+                        "SUCCEEDED"
+                    ]
+                },
+                "trackedProperties": {},
+                "type": "InitializeVariable"
+            },
+            "For_each_1": {
+                "actions": {
+                    "Filter_array_Country": {
+                        "inputs": {
+                            "from": "@body('CountryJson')?['data']",
+                            "where": "@equals(item()?['name'],variables('Field data')[6])"
+                        },
+                        "type": "Query"
+                    },
+                    "For_each_3": {
+                        "actions": {
+                            "setCountry": {
+                                "inputs": {
+                                    "name": "countries",
+                                    "value": "@items('For_each_3')['id']"
+                                },
+                                "type": "SetVariable"
+                            }
+                        },
+                        "foreach": "@outputs('Filter_array_Country')['body']",
+                        "runAfter": {
+                            "Filter_array_Country": [
+                                "SUCCEEDED"
+                            ]
+                        },
+                        "type": "foreach"
+                    }
+                },
+                "foreach": "@outputs('CountryJson')?['body']?['data']",
+                "runAfter": {
+                    "country": [
+                        "SUCCEEDED"
+                    ]
+                },
+                "type": "foreach"
+            },
+            "For_each_2": {
+                "actions": {
+                    "For_each": {
+                        "actions": {
+                            "Append_to_array_variable": {
+                                "inputs": {
+                                    "name": "Field data",
+                                    "value": "@items('For_each')['Value']"
+                                },
+                                "type": "AppendToArrayVariable"
+                            }
+                        },
+                        "foreach": "@items('For_each_2')",
+                        "type": "Foreach"
+                    }
+                },
+                "foreach": "@body('Parse_JSON')",
+                "runAfter": {
+                    "Field_data": [
+                        "SUCCEEDED"
+                    ]
+                },
+                "trackedProperties": {},
+                "type": "Foreach"
+            },
+            "GET_VBM_Resource": {
+                "inputs": {
+                    "headers": {
+                        "Authorization": "bearer @{body('Get_Token')?['access_token']}",
+                        "Content-Type": "application/json",
+                        "X-Client-Version": "string"
+                    },
+                    "method": "GET",
+                    "uri": "https://@{parameters('servername')}:1280/api/v3/organizations/companies/@{body('Get_Company_ID')?['data']?['instanceUid']}/vb365Resources?filter=[{\"property\":\"friendlyname\",\"operation\":\"equals\",\"value\":\"@{parameters('VB365Server')}\"}]"
+                },
+                "runAfter": {
+                    "Assign_VBM_Resource": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Http"
+            },
+            "Get_Auth": {
+                "inputs": {
+                    "body": "grant_type=password&username=@{parameters('username')}&password=@{parameters('Password')}&&&&&&",
+                    "headers": {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "X-Client-Version": "string"
+                    },
+                    "method": "POST",
+                    "uri": "https://@{parameters('servername')}:1280/api/v3/token"
+                },
+                "runAfter": {
+                    "For_each_1": [
+                        "SUCCEEDED"
+                    ]
+                },
+                "type": "Http"
+            },
+            "Get_Company_ID": {
+                "inputs": {
+                    "content": "@body('Create_Company')",
+                    "schema": {
+                        "properties": {
+                            "data": {
+                                "properties": {
+                                    "_embedded": {
+                                        "properties": {
+                                            "organization": {}
+                                        },
+                                        "type": "object"
+                                    },
+                                    "companyServices": {
+                                        "properties": {
+                                            "isBackupAgentManagementEnabled": {
+                                                "type": "boolean"
+                                            },
+                                            "isBackupServerManagementEnabled": {
+                                                "type": "boolean"
+                                            },
+                                            "isFileLevelRestoreEnabled": {
+                                                "type": "boolean"
+                                            },
+                                            "isVBPublicCloudManagementEnabled": {
+                                                "type": "boolean"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "instanceUid": {
+                                        "type": "string"
+                                    },
+                                    "isAlarmDetectEnabled": {
+                                        "type": "boolean"
+                                    },
+                                    "loginUrl": {},
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "permissions": {
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "resellerUid": {},
+                                    "status": {
+                                        "type": "string"
+                                    },
+                                    "subscriptionPlanUid": {}
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "runAfter": {
+                    "Create_Company": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ParseJson"
+            },
+            "Get_Resource_Details": {
+                "inputs": {
+                    "content": "@body('Get_VBM_Repositories')",
+                    "schema": {
+                        "properties": {
+                            "capacityBytes": {
+                                "type": "integer"
+                            },
+                            "description": {
+                                "type": "string"
+                            },
+                            "freeSpaceBytes": {
+                                "type": "integer"
+                            },
+                            "instanceUid": {
+                                "type": "string"
+                            },
+                            "isArchiveRepository": {
+                                "type": "boolean"
+                            },
+                            "isObjectStorageRepository": {
+                                "type": "boolean"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "path": {
+                                "type": "string"
+                            },
+                            "proxyUid": {
+                                "type": "string"
+                            },
+                            "retentionType": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "runAfter": {
+                    "Get_VBM_Repositories": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ParseJson"
+            },
+            "Get_Site_UID": {
+                "inputs": "@body('Parse_VCC_Sites').data[0].siteUid",
+                "runAfter": {
+                    "Parse_VCC_Sites": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Compose"
+            },
+            "Get_Token": {
+                "inputs": {
+                    "content": "@body('Get_Auth')",
+                    "schema": {
+                        "properties": {
+                            "access_token": {
+                                "type": "string"
+                            },
+                            "encrypted_code": {},
+                            "expires_in": {
+                                "type": "integer"
+                            },
+                            "mfa_token": {},
+                            "refresh_token": {
+                                "type": "string"
+                            },
+                            "token_type": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "runAfter": {
+                    "Get_Auth": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ParseJson"
+            },
+            "Get_VBM_Repositories": {
+                "description": "Gets Repositories with 20+ GB free space and select fisrt one",
+                "inputs": {
+                    "headers": {
+                        "Authorization": "bearer @{body('Get_Token')?['access_token']}",
+                        "Content-Type": "application/json",
+                        "X-Client-Version": "string"
+                    },
+                    "method": "GET",
+                    "uri": "https://@{parameters('servername')}:1280/api/v3/infrastructure/vb365Servers/@{outputs('VBM_Install_ID')}/backupRepositories?filter=[{\"property\":\"isObjectStorageRepository\",\"operation\":\"equals\",\"value\":\"true\"}]&[{\"property\":\"isAvailableForBackupJob\",\"operation\":\"equals\",\"value\":\"true\"}]&limit=1"
+                },
+                "runAfter": {
+                    "Resource_UID": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Http"
+            },
+            "Get_VBM_details": {
+                "inputs": {
+                    "content": "@body('Get_VBM_servers_')",
+                    "schema": {
+                        "properties": {
+                            "installationUid": {
+                                "type": "string"
+                            },
+                            "instanceUid": {
+                                "type": "string"
+                            },
+                            "locationUid": {
+                                "type": "string"
+                            },
+                            "managementAgentUid": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "organizationUid": {
+                                "type": "string"
+                            },
+                            "status": {
+                                "type": "string"
+                            },
+                            "version": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "runAfter": {
+                    "Get_VBM_servers_": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ParseJson"
+            },
+            "Get_VBM_servers_": {
+                "inputs": {
+                    "headers": {
+                        "Authorization": "bearer @{body('Get_Token')?['access_token']}",
+                        "Content-Type": "application/json",
+                        "X-Client-Version": "string"
+                    },
+                    "method": "GET",
+                    "uri": "https://@{parameters('servername')}:1280/api/v3/infrastructure/vb365Servers?filter=[{\"property\":\"name\",\"operation\":\"equals\",\"value\":\"@{parameters('VB365Server')}\"}]"
+                },
+                "runAfter": {
+                    "Assign_VCC_Site": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Http"
+            },
+            "Get_VCC_Sites": {
+                "inputs": {
+                    "headers": {
+                        "Authorization": "bearer @{body('Get_Token')?['access_token']}",
+                        "Content-Type": "application/json",
+                        "X-Client-Version": "string"
+                    },
+                    "method": "GET",
+                    "uri": "https://@{parameters('servername')}:1280/api/v3/infrastructure/sites?filter=[{\"property\":\"siteName\",\"operation\":\"equals\",\"value\":\"@{parameters('VCCsite')}\"}]&limit=1"
+                },
+                "runAfter": {
+                    "JS_Pass_Gen": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Http"
+            },
+            "JS_Pass_Gen": {
+                "inputs": {
+                    "code": "function generatePassword() {\r\n  const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';\r\n  let password = '';\r\n  for (let i = 0; i < 5; i++) {\r\n    password += characters.charAt(Math.floor(Math.random() * characters.length));\r\n  }\r\n  return password;\r\n}\r\n\r\nreturn generatePassword();"
+                },
+                "runAfter": {
+                    "Get_Company_ID": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "JavaScriptCode"
+            },
+            "Parse_JSON": {
+                "inputs": {
+                    "content": "@body('Execute_query')",
+                    "schema": {
+                        "items": {
+                            "items": {
+                                "properties": {
+                                    "CreateDate": {
+                                        "format": "date-time",
+                                        "type": "string"
+                                    },
+                                    "ID": {
+                                        "type": "integer"
+                                    },
+                                    "OfferID": {
+                                        "type": "string"
+                                    },
+                                    "PlanAttributeId": {
+                                        "type": "integer"
+                                    },
+                                    "PlanID": {
+                                        "type": "string"
+                                    },
+                                    "SubscriptionId": {
+                                        "type": "string"
+                                    },
+                                    "UserId": {
+                                        "type": "integer"
+                                    },
+                                    "Value": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "ID",
+                                    "PlanAttributeId",
+                                    "Value",
+                                    "SubscriptionId",
+                                    "CreateDate",
+                                    "UserId",
+                                    "PlanID",
+                                    "OfferID"
+                                ],
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        "type": "array"
+                    }
+                },
+                "runAfter": {
+                    "Until": [
+                        "SUCCEEDED"
+                    ]
+                },
+                "type": "ParseJson"
+            },
+            "Parse_JSON_1": {
+                "inputs": {
+                    "content": "@triggerBody()",
+                    "schema": {
+                        "properties": {
+                            "@@odata.context": {
+                                "type": "string"
+                            },
+                            "value": {
+                                "items": {
+                                    "properties": {
+                                        "@@odata.etag": {
+                                            "type": "string"
+                                        },
+                                        "AMPSubscriptionId": {
+                                            "type": "string"
+                                        },
+                                        "ItemInternalId": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "@@odata.etag",
+                                        "ItemInternalId",
+                                        "AMPSubscriptionId"
+                                    ],
+                                    "type": "object"
+                                },
+                                "type": "array"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "runAfter": {},
+                "type": "ParseJson"
+            },
+            "Parse_VCC_Sites": {
+                "inputs": {
+                    "content": "@body('Get_VCC_Sites')",
+                    "schema": {
+                        "properties": {
+                            "description": {
+                                "type": "string"
+                            },
+                            "managementAgentUid": {
+                                "type": "string"
+                            },
+                            "siteName": {
+                                "type": "string"
+                            },
+                            "siteUid": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "runAfter": {
+                    "Get_VCC_Sites": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ParseJson"
+            },
+            "Proxy_UID": {
+                "inputs": "@body('Get_Resource_Details').data[0].proxyUid",
+                "runAfter": {
+                    "Repository_UID": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Compose"
+            },
+            "Query_Subscription": {
+                "inputs": {
+                    "body": {
+                        "query": "SELECT *FROM Subscriptions WHERE AMPSubscriptionId ='@{outputs('AMPID')}'"
+                    },
+                    "host": {
+                        "connection": {
+                            "referenceName": "sql_t"
+                        }
+                    },
+                    "method": "post",
+                    "path": "/v2/datasets/@{encodeURIComponent(encodeURIComponent('default'))},@{encodeURIComponent(encodeURIComponent('default'))}/query/sql"
+                },
+                "runAfter": {
+                    "AMPID": [
+                        "SUCCEEDED"
+                    ]
+                },
+                "type": "ApiConnection"
+            },
+            "Repository_UID": {
+                "inputs": "@body('Get_Resource_Details').data[0].instanceUid",
+                "runAfter": {
+                    "Get_Resource_Details": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Compose"
+            },
+            "Resource_UID": {
+                "inputs": "@body('VBM_Resource_Details').data[0].instanceUid",
+                "runAfter": {
+                    "VBM_Resource_Details": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Compose"
+            },
+            "Send_Welcome_Email": {
+                "inputs": {
+                    "body": {
+                        "password": "@{outputs('JS_Pass_Gen')}"
+                    },
+                    "headers": {
+                        "Authorization": "bearer @{body('Get_Token')?['access_token']}",
+                        "Content-Type": "application/json",
+                        "X-Client-Version": "string"
+                    },
+                    "method": "POST",
+                    "uri": "https://@{parameters('servername')}:1280/api/v3/organizations/companies/@{body('Get_Company_ID')?['data']?['instanceUid']}/welcomeEmail"
+                },
+                "runAfter": {
+                    "Set_VBM_Resources": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Http"
+            },
+            "Set_VBM_Resources": {
+                "description": "Create Variables that are passed from first web request , pass here in bod",
+                "inputs": {
+                    "body": {
+                        "isUsersQuotaUnlimited": false,
+                        "proxyUid": "@{outputs('Proxy_UID')}",
+                        "repositoryUid": "@{outputs('Repository_UID')}",
+                        "usersQuota": "@{outputs('AMPQuantity')}"
+                    },
+                    "headers": {
+                        "Authorization": "bearer @{body('Get_Token')?['access_token']}",
+                        "Content-Type": "application/json",
+                        "X-Client-Version": "string"
+                    },
+                    "method": "POST",
+                    "uri": "https://@{parameters('servername')}:1280/api/v3/organizations/companies/@{body('Get_Company_ID')?['data']?['instanceUid']}/vb365Resources/@{outputs('Resource_UID')}/backupResources"
+                },
+                "runAfter": {
+                    "Proxy_UID": [
+                        "SUCCEEDED"
+                    ]
+                },
+                "type": "Http"
+            },
+            "Subscription_details": {
+                "inputs": {
+                    "content": "@body('Query_Subscription')",
+                    "schema": {
+                        "properties": {
+                            "OutputParameters": {
+                                "properties": {},
+                                "type": "object"
+                            },
+                            "ResultSets": {
+                                "properties": {
+                                    "Table1": {
+                                        "items": {
+                                            "properties": {
+                                                "AMPPlanId": {
+                                                    "type": "string"
+                                                },
+                                                "AMPQuantity": {
+                                                    "type": "integer"
+                                                },
+                                                "AMPSubscriptionId": {
+                                                    "type": "string"
+                                                },
+                                                "CreateBy": {
+                                                    "type": "integer"
+                                                },
+                                                "CreateDate": {
+                                                    "type": "string"
+                                                },
+                                                "Id": {
+                                                    "type": "integer"
+                                                },
+                                                "IsActive": {
+                                                    "type": "boolean"
+                                                },
+                                                "ModifyDate": {
+                                                    "type": "string"
+                                                },
+                                                "Name": {
+                                                    "type": "string"
+                                                },
+                                                "PurchaserEmail": {
+                                                    "type": "string"
+                                                },
+                                                "PurchaserTenantId": {
+                                                    "type": "string"
+                                                },
+                                                "SubscriptionStatus": {
+                                                    "type": "string"
+                                                },
+                                                "UserId": {
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "required": [
+                                                "Id",
+                                                "AMPSubscriptionId",
+                                                "SubscriptionStatus",
+                                                "AMPPlanId",
+                                                "IsActive",
+                                                "CreateBy",
+                                                "CreateDate",
+                                                "ModifyDate",
+                                                "UserId",
+                                                "Name",
+                                                "AMPQuantity",
+                                                "PurchaserEmail",
+                                                "PurchaserTenantId"
+                                            ],
+                                            "type": "object"
+                                        },
+                                        "type": "array"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "runAfter": {
+                    "Query_Subscription": [
+                        "SUCCEEDED"
+                    ]
+                },
+                "type": "ParseJson"
+            },
+            "Until": {
+                "actions": {
+                    "Execute_query": {
+                        "inputs": {
+                            "parameters": {
+                                "query": "SELECT *\nFROM SubscriptionAttributeValues\nWHERE SubscriptionId = '@{outputs('AMPID')}'"
+                            },
+                            "serviceProviderConfiguration": {
+                                "connectionName": "sql",
+                                "operationId": "executeQuery",
+                                "serviceProviderId": "/serviceProviders/sql"
+                            }
+                        },
+                        "trackedProperties": {},
+                        "type": "ServiceProvider"
+                    },
+                    "Parse_JSON_2": {
+                        "inputs": {
+                            "content": "@body('Execute_query')",
+                            "schema": {
+                                "items": {
+                                    "items": {
+                                        "properties": {
+                                            "CreateDate": {
+                                                "type": "string"
+                                            },
+                                            "ID": {
+                                                "type": "integer"
+                                            },
+                                            "OfferID": {
+                                                "type": "string"
+                                            },
+                                            "PlanAttributeId": {
+                                                "type": "integer"
+                                            },
+                                            "PlanID": {
+                                                "type": "string"
+                                            },
+                                            "SubscriptionId": {
+                                                "type": "string"
+                                            },
+                                            "UserId": {
+                                                "type": "integer"
+                                            },
+                                            "Value": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "ID",
+                                            "PlanAttributeId",
+                                            "Value",
+                                            "SubscriptionId",
+                                            "CreateDate",
+                                            "UserId",
+                                            "PlanID",
+                                            "OfferID"
+                                        ],
+                                        "type": "object"
+                                    },
+                                    "type": "array"
+                                },
+                                "type": "array"
+                            }
+                        },
+                        "runAfter": {
+                            "Execute_query": [
+                                "SUCCEEDED"
+                            ]
+                        },
+                        "type": "ParseJson"
+                    }
+                },
+                "expression": "@not(empty(body('Parse_JSON_2')))",
+                "limit": {
+                    "count": 5000,
+                    "timeout": "PT5M"
+                },
+                "operationOptions": "FailWhenLimitsReached",
+                "runAfter": {
+                    "AMPQuantity": [
+                        "SUCCEEDED"
+                    ]
+                },
+                "trackedProperties": {},
+                "type": "Until"
+            },
+            "VBM_Install_ID": {
+                "inputs": "@body('Get_VBM_details').data[0].installationUid",
+                "runAfter": {
+                    "Get_VBM_details": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Compose"
+            },
+            "VBM_Resource_Details": {
+                "inputs": {
+                    "content": "@body('GET_VBM_Resource')",
+                    "schema": {
+                        "properties": {
+                            "companyUid": {
+                                "type": "string"
+                            },
+                            "friendlyName": {
+                                "type": "string"
+                            },
+                            "instanceUid": {
+                                "type": "string"
+                            },
+                            "vb365ServerUid": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "runAfter": {
+                    "GET_VBM_Resource": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ParseJson"
+            },
+            "VCSP_Provisioned_Notification_": {
+                "inputs": {
+                    "body": {
+                        "Body": "<p>Dear SaaS Provider Team, I hope this email finds you well.</p><p>I wanted to inform you that the SaaS offer for our customer, @{variables('Field data')[0]}, has been automatically provisioned and is now active. </p><p><br></p><p>The offer includes a total of @{triggerBody()?['AMPQuantity']} user accounts. </p><p><br></p><p>We appreciate your efficient handling of the provisioning process and your commitment to providing seamless service. </p><p><br></p><p>We believe that this will be an excellent solution for @{variables('Field data')[0]} and will help them achieve their business goals. </p><p><br></p><p>We look forward to continuing our partnership with you and providing our customers with the best SaaS solutions available. </p><p><br></p><p>If you have any questions or concerns, please do not hesitate to reach out to us. Thank you for your continued support.</p><p><br></p><p>Best regards,</p><p>SaaS API robot&nbsp;</p><p><br></p>",
+                        "From": "info@email.co.za",
+                        "Importance": "Normal",
+                        "Subject": "Provisioned @{variables('Field data')[0]}",
+                        "To": "info@email.co.za"
+                    },
+                    "host": {
+                        "connection": {
+                            "referenceName": "office365"
+                        }
+                    },
+                    "method": "post",
+                    "path": "/v2/Mail"
+                },
+                "runAfter": {
+                    "Send_Welcome_Email": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ApiConnection"
+            },
+            "country": {
+                "inputs": {
+                    "variables": [
+                        {
+                            "name": "countries",
+                            "type": "integer"
+                        }
+                    ]
+                },
+                "runAfter": {
+                    "CountryJson": [
+                        "SUCCEEDED"
+                    ]
+                },
+                "type": "InitializeVariable"
+            }
+        },
+        "contentVersion": "1.0.0.0",
+        "outputs": {},
+        "triggers": {
+            "When_an_item_is_created_(V2)": {
+                "conditions": [],
+                "inputs": {
+                    "host": {
+                        "connection": {
+                            "referenceName": "sql_t"
+                        }
+                    },
+                    "method": "get",
+                    "path": "/v2/datasets/@{encodeURIComponent(encodeURIComponent('default'))},@{encodeURIComponent(encodeURIComponent('default'))}/tables/@{encodeURIComponent(encodeURIComponent('[dbo].[Subscriptions]'))}/onnewitems",
+                    "queries": {
+                        "$select": "AMPSubscriptionId"
+                    }
+                },
+                "recurrence": {
+                    "frequency": "Second",
+                    "interval": 15
+                },
+                "type": "ApiConnection"
+            }
+        }
+    },
+    "kind": "Stateless"
+}
