@@ -233,18 +233,18 @@ To install this solution, follow these steps:
 ```
 ## Example
 ```bash 
-PS /home/ian> gh repo clone mritsurgeon/VB365-as-a-Service
+ian [ ~ ]$ gh repo clone mritsurgeon/VB365-as-a-Service
 Cloning into 'VB365-as-a-Service'...
-remote: Enumerating objects: 172, done.
-remote: Counting objects: 100% (54/54), done.
-remote: Compressing objects: 100% (51/51), done.
-remote: Total 172 (delta 34), reused 3 (delta 3), pack-reused 118
-Receiving objects: 100% (172/172), 48.28 KiB | 3.71 MiB/s, done.
-Resolving deltas: 100% (76/76), done.
-PS /home/ian> chmod -R u+x VB365-as-a-Service/
-PS /home/ian> cd ./VB365-as-a-Service/Deployment/
-[ ~/VB365-as-a-Service/Deployment ]$ chmod -R u+x *.sh
-PS /home/ian/VB365-as-a-Service/Deployment> ./install.sh  -r vb365testRSA -l "eastus" -v vm1 -s vm2 -u veeam -p "Veeam@demo123" -n 365 -w logicapp -m mailtrigger -a vbsaas -b vbsaas -e "ian@contoso.com"
+remote: Enumerating objects: 862, done.
+remote: Counting objects: 100% (315/315), done.
+remote: Compressing objects: 100% (219/219), done.
+remote: Total 862 (delta 143), reused 198 (delta 86), pack-reused 547
+Receiving objects: 100% (862/862), 216.38 KiB | 6.36 MiB/s, done.
+Resolving deltas: 100% (371/371), done.
+ian [ ~ ]$ chmod -R u+x VB365-as-a-Service/
+ian [ ~ ]$ cd VB365-as-a-Service/Deployment/
+ian [ ~/VB365-as-a-Service/Deployment ]$ chmod -R u+x *.sh
+ian [ ~/VB365-as-a-Service/Deployment ]$ ./install.sh  -r vb365testRSA -l "eastus" -v vm1 -s vm2 -u veeam -p "Veeam@demo123" -n 365 -w logicapp -m mailtrigger -a vbsaas -b vbsaas -e "ian@contoso.com"
 ```
 
 ### Usage
