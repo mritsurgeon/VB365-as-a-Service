@@ -243,6 +243,7 @@ Receiving objects: 100% (172/172), 48.28 KiB | 3.71 MiB/s, done.
 Resolving deltas: 100% (76/76), done.
 PS /home/ian> chmod -R u+x VB365-as-a-Service/
 PS /home/ian> cd ./VB365-as-a-Service/Deployment/
+[ ~/VB365-as-a-Service/Deployment ]$ chmod -R u+x *.sh
 PS /home/ian/VB365-as-a-Service/Deployment> ./install.sh  -r vb365testRSA -l "eastus" -v vm1 -s vm2 -u veeam -p "Veeam@demo123" -n 365 -w logicapp -m mailtrigger -a vbsaas -b vbsaas -e "ian@contoso.com"
 ```
 
