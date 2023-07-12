@@ -22,7 +22,14 @@ dotnet tool install --global dotnet-ef
 
 # Call the Deploy.ps1 script
 cd ./Commercial-Marketplace-SaaS-Accelerator/deployment
-pwsh ./Deploy.ps1 -WebAppNamePrefix $WebAppNamePrefix -SQLServerName $SQLServerName -PublisherAdminUsers $PublisherAdminUsers -ResourceGroupForDeployment $ResourceGroupForDeployment $location
+
+# Export the PATH variable for use in the subsequent PowerShell script
+export POWERSHELL_ENV_PATH="$PATH"
+
+# Execute the PowerShell script
+pwsh -Command "& { \$env:PATH = \$env:POWERSHELL_ENV_PATH; ./Deploy.ps1 -WebAppNamePrefix '$WebAppNamePrefix' -SQLServerName '$SQLServerName' -PublisherAdminUsers '$PublisherAdminUsers' -ResourceGroupForDeployment '$ResourceGroupForDeployment' -location '$location' }"
+
+#pwsh ./Deploy.ps1 -WebAppNamePrefix $WebAppNamePrefix -SQLServerName $SQLServerName -PublisherAdminUsers $PublisherAdminUsers -ResourceGroupForDeployment $ResourceGroupForDeployment $location
 
 # Print a message for the user
 echo "SaaS accelerator deployed successfully!!"
