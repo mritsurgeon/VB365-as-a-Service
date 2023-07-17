@@ -151,7 +151,7 @@
                 "inputs": {
                     "body": {
                         "Body": "<p>Dear @{variables('Field data')[4]}, </p><p><br></p><p>Welcome to our new SaaS Service! </p><p>We're excited to have you on board and look forward to helping you keep your Office 365 data safe and secure. </p><p>To get started, please use the following login information to access your account: </p><p><br></p><p>Login URL: @{parameters('VSPCURL')} Username: @{variables('Field data')[0]}\\@{variables('Field data')[0]} Password: @{outputs('JS_Pass_Gen')} </p><p><br></p><p>Once you've logged in, follow these steps to configure backup for your Office 365:</p><p><br></p><p>1) Click on the \"Configuration\" tab </p><p>2) Click on the \"Office 365 Plugin\" option</p><p>3) Select New organization </p><p>4) Add your organization and follow the on-screen prompts </p><p>6) Go back to the main dashboard and select \"Backup Jobs\" </p><p>7) Add a backup job </p><p>8) Select the organization that you added in step 4 </p><p>9) Configure the backup job to your liking </p><p><br></p><p>If you have any questions or concerns, please don't hesitate to contact our support team. They're available 24/7 to help you with any issues you may encounter. </p><p><br></p><p>Thank you for choosing our new SaaS Service. We're thrilled to have you as a customer and look forward to helping you protect your Office 365 data. </p><p><br></p><p>Best regards, </p><p>Robot The SaaS Service Team</p><p><br></p>",
-                        "From": "info@email.co.za",
+                        "From": "user@Email.co.za",
                         "Importance": "Normal",
                         "Subject": "Welcome To VB365 Veeam SaaS Service ",
                         "To": "@{variables('Field data')[1]}"
@@ -964,10 +964,10 @@
                 "inputs": {
                     "body": {
                         "Body": "<p>Dear SaaS Provider Team, I hope this email finds you well.</p><p>I wanted to inform you that the SaaS offer for our customer, @{variables('Field data')[0]}, has been automatically provisioned and is now active. </p><p><br></p><p>The offer includes a total of @{triggerBody()?['AMPQuantity']} user accounts. </p><p><br></p><p>We appreciate your efficient handling of the provisioning process and your commitment to providing seamless service. </p><p><br></p><p>We believe that this will be an excellent solution for @{variables('Field data')[0]} and will help them achieve their business goals. </p><p><br></p><p>We look forward to continuing our partnership with you and providing our customers with the best SaaS solutions available. </p><p><br></p><p>If you have any questions or concerns, please do not hesitate to reach out to us. Thank you for your continued support.</p><p><br></p><p>Best regards,</p><p>SaaS API robot&nbsp;</p><p><br></p>",
-                        "From": "info@email.co.za",
+                        "From": "user@email.co.za",
                         "Importance": "Normal",
                         "Subject": "Provisioned @{variables('Field data')[0]}",
-                        "To": "info@email.co.za"
+                        "To": "user@email.co.za"
                     },
                     "host": {
                         "connection": {
