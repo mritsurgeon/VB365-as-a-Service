@@ -3,6 +3,8 @@
 # VB365-as-a-Service
 Azure Software as a Solution for Veeam Backup for Microsoft 365 as a Service
 
+https://www.youtube.com/watch?v=gkfJVJlOcVo
+
 ## Project Amafu
 
 Project Amafu, which means "Clouds" in Zulu, is a SaaS offering that provides an easy-to-use backup solution for Office 365 users. The solution deploys a VSPC server and Veeam Cloud Connect in Azure, along with Veeam Backup for Office 365. It also uses the Microsoft SaaS Accelerator to deploy a web app and create an offer for the Microsoft Marketplace, which includes a landing page and webhook from the Saas Accelerator deployment.
